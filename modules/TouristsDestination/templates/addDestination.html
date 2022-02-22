@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Trip India</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
+    <link href="{{ url_for('touristdestination.static', filename='assets/img/apple-touch-icon.png') }}"
+        rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link
+        href="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}"
+        rel="stylesheet">
+    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}"
+        rel="stylesheet">
+    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}"
+        rel="stylesheet">
+    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}"
+        rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <div class="logo">
+                <h1><a href="/">Trip India<span>.</span></a></h1>
+                <p> </p>
+
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+
+                    <li><a class="nav-link scrollto active" href="/home">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/home#about">About Us</a></li>
+                    <li><a class="nav-link scrollto" href="/home#services">Services</a></li>
+
+                    <li class="dropdown"><a href=""><span>Explore</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/touristdestination/explore/rajasthan">Tourist Places</a></li>
+                            <li><a href="#">Hotels</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="/home#services">Tour Planner</a></li>
+                    <li><a class="nav-link scrollto" href="/home#contact">Contact Us</a></li>
+
+                    {% if loggedIn %}
+                    <li class="dropdown"><a href=""><span>Hello {{firstname}} </span> <i
+                                class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/user/profile">My Profile</a></li>
+                            <!--
+                        <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                          <ul>
+                            <li><a href="#">Deep Drop Down 1</a></li>
+                            <li><a href="#">Deep Drop Down 2</a></li>
+                            <li><a href="#">Deep Drop Down 3</a></li>
+                            <li><a href="#">Deep Drop Down 4</a></li>
+                            <li><a href="#">Deep Drop Down 5</a></li>
+                          </ul>
+                        </li>
+                        -->
+                            <li><a href="#">My Plans</a></li>
+                            <li><a href="#">My Reviews</a></li>
+                            <li><a href="/user/signout">Log Out</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a class="getstarted scrollto" href="/user/login">Sign In</a></li>
+                    {% endif %}
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+
+                <!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+    <div>
+        <p></p>
+        <h1 class="text-center"> Add Destination</h1>
+        <h6 class="text-center text-primary"> Please follow format precisely</h6>
+        <p></p>
+        <form action="/touristdestination/addDestination" method="POST">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <h2>Primary Data:</h2>
+                    <div class="mb-3 mt-3">
+                        <label class="form-label">Destination Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="eg. Kuldhara" name="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select State:</label>
+                        <select class="form-select" id="state" name="state">
+                            <option>Rajasthan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select City:</label>
+                        <select class="form-select" id="city" name="city">
+                            <option>Jaisalmer</option>
+                            <option>Jodhpur</option>
+                            <option>Jaipur</option>
+                            <option>Ajmer</option>
+                            <option>Udaipur</option>
+                            <option>Bikaner</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select Destination Type:</label>
+                        <select class="form-select" id="type" name="type">
+                            <option>Historic</option>
+                            <option>Religious</option>
+                            <option>Adventourous</option>
+                            <option>Natural</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Opening Time:</label>
+                        <input type="text" class="form-control" id="openingTime" placeholder="eg. 10:00AM"
+                            name="openingTime">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Closing Time:</label>
+                        <input type="text" class="form-control" id="closingTime" placeholder="eg. 6:00PM"
+                            name="closingTime">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Time Required for Exploration(In Minutes) - (Number):</label>
+                        <input type="text" class="form-control" id="timeRequired" placeholder="eg. 120"
+                            name="timeRequired">
+                    </div>
+                    <p class="text-primary">Include all possible spendings like entry fees, tourist guide charge, camera
+                        charge</p>
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Spending for Indian(Include all possible spendings):</label>
+                        <input type="text" class="form-control" id="spendingForIndian" placeholder="eg. 100RS"
+                            name="spendingForIndian">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Spending for Foreigner(Include all possible
+                            spendings):</label>
+                        <input type="text" class="form-control" id="spendingForForeigner" placeholder="eg. 500RS"
+                            name="spendingForForeigner">
+                    </div>
+                    <p class="text-primary">If Location is 13km South West of city, fill following two fields as 'SW'
+                        and
+                        '13'</p>
+                    <div class="mb-3">
+                        <label class="form-label">Location Direction(N of city/NE of city/NW of city/SE of city) -
+                            (one/two letters):</label>
+                        <input type="text" class="form-control" id="locationDirection" placeholder="eg. NE"
+                            name="locationDirection">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Location Distance(7km NE of city) - (Number in km):</label>
+                        <input type="text" class="form-control" id="locationDistance" placeholder="eg. 7"
+                            name="locationDistance">
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-primary">Only 'True' or 'False' allowed (case sensitive letters)</p>
+                        <label class="form-label">Is MedCondAllowed(True/False):</label>
+                        <input type="text" class="form-control" id="isMedCondAllowed" placeholder="eg. True"
+                            name="isMedCondAllowed">
+                    </div>
+
+                    <h2>Blocks:</h2>
+                    <p class="text-primary">All above data was for tour planner purpose. Now add data that will be
+                        visible on page. Add Blocks to page.</p>
+                    <p class="text-primary">Blocks can be anything, examples are "Description" / "History" / "Prefered
+                        time for visit" / "Interesting facts" / "Things to Remember" / "Covid Protocols" / "How to
+                        Reach" / ""</p>
+                    <p class="text-primary">Try to be breif about information and add detailed information of tourist
+                        place</p>
+                    <p class="text-primary">Paste all information in Block Data column. Most of times data will be large
+                        so you will not be able to see it clearly after pasting. So verify spelling mistakes and other
+                        possible mistakes before pasting.</p>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title1" id="title1" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data1" id="data1" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title2" id="title2" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data2" id="data2" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title3" id="title3" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data3" id="data3" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title4" id="title4" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data4" id="data4" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input rows="1" name="title5" id="title5" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data5" id="data5" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="newRow"></div>
+                    <button id="addRow" type="button" class="btn btn-info">Add Block</button>
+
+                    <p></p>
+                    <p class="text-danger">{{warning}}</p>
+                    <p class="text-success">{{success}}</p>
+
+
+                    <div class="text-center mt-4 mb-4">
+                        <button type="submit" class="btn btn-primary">Create Page</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <p></p>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+
+            <div class="container">
+
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6" data-aos="fade-in">
+                        <h3>Trip India</h3>
+                        <p>A Journey Of A Thousand Miles Begins With A Single Step</p>
+                    </div>
+                </div>
+
+                <div class="row footer-newsletter justify-content-center">
+                    <div class="col-lg-6">
+                        <form action="" method="post">
+                            <input type="email" name="email" placeholder="Enter your Email"><input type="submit"
+                                value="Subscribe">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Trip India</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
+                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('touristdestination.static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script
+        src="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script
+        src="{{ url_for('touristdestination.static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script
+        src="{{ url_for('touristdestination.static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script
+        src="{{ url_for('touristdestination.static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script
+        src="{{ url_for('touristdestination.static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{{ url_for('touristdestination.static', filename='assets/js/main.js') }}"></script>
+
+    <script type="text/javascript">
+        // add row
+        var count = 6
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="data">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="title' + count + '" id="title' + count + '" class="form-control m-input" placeholder = "Block Title" autocomplete = "off" > ';
+            html += '<textarea rows="1" name="data' + count + '" id="data' + count + '" class="form-control m-input" placeholder = "Block Data" autocomplete = "off" ></textarea> ';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+            count++;
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#data').remove();
+            count--;
+        });
+    </script>
+
+</body>
+
+</html>

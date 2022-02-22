@@ -1,0 +1,5 @@
+flask == 2.0.2
+gunicorn == 20.1.0
+psycopg2 == 2.9.3
+bcrypt == 3.2.0
+flask_mail == 0.9.1
