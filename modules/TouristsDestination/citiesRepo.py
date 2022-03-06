@@ -1,7 +1,8 @@
-import MainRepo
+class Repo():
+    def __init__(self, db) -> None:
+        self.conn = db.conn
+        self.cur = db.cur
 
-
-class Repo(MainRepo.Repo):
     def createCityTable(self):
         try:
             query = """CREATE TABLE IF NOT EXISTS "Cities" (

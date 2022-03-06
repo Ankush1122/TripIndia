@@ -1,18 +1,22 @@
 from flask import Blueprint, render_template, redirect, request, current_app, session
 from flask.helpers import url_for
-from TouristsDestination.TouristDestinationServices import Services
-from TouristsDestination.TouristDestinationModel import TouristDestination
-from User import UserServices
 import os
+from flask_mail import Message
 
 touristdestination = Blueprint("touristdestination", __name__, static_folder="static",
                                template_folder="templates")
 
 
+from TouristsDestination.TouristDestinationServices import Services
+from TouristsDestination.TouristDestinationModel import TouristDestination
+from User import UserServices
+from app import db, mail
+
+
 @touristdestination.route('/explore/rajasthan', methods=['GET'])
 def exploreRajasthan():
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -28,7 +32,7 @@ def exploreRajasthan():
 @touristdestination.route('/explore/rajasthan/<cityname>', methods=['GET'])
 def places(cityname):
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -38,7 +42,7 @@ def places(cityname):
     else:
         userData = [False]
         firstname = ""
-    service = Services(current_app.config)
+    service = Services(db)
     data = service.getDestinationsByCity(cityname)
     cityData = service.getCityByName(cityname)
     if(data[0] and cityData[0]):
@@ -49,7 +53,7 @@ def places(cityname):
 
 @touristdestination.route('/explore/rajasthan/<cityname>/<destination>', methods=['GET'])
 def touristDestination(cityname, destination):
-    userService = UserServices.UserServices(current_app.config)
+    userService = UserServices.UserServices(db)
     if (not session.get("index") is None):
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
@@ -60,7 +64,7 @@ def touristDestination(cityname, destination):
     else:
         userData = [False, None]
         firstname = ""
-    service = Services(current_app.config)
+    service = Services(db)
     data = service.getDestination(destination)
     if(data[0] and data[1].city == cityname):
         dir = ""
@@ -88,7 +92,7 @@ def touristDestination(cityname, destination):
 @touristdestination.route('/addDestination', methods=['GET', 'POST'])
 def addDestination():
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -114,7 +118,7 @@ def addDestination():
         destination = TouristDestination(None, formdata.get(
             "name"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime"), formdata.get("closingTime"), formdata.get("spendingForIndian"), formdata.get("spendingForForeigner"), formdata.get("isMedCondAllowed"), formdata.get("locationDirection"), formdata.get("locationDistance"), formdata.get("timeRequired"), blockData, userData[1].userid)
 
-        service = Services(current_app.config)
+        service = Services(db)
         data = service.addDestination(destination)
         if(data[0]):
             return redirect(url_for('touristdestination.upload', destinationname=destination.name))
@@ -129,7 +133,7 @@ def addDestination():
 @touristdestination.route('/uploadimages/<destinationname>', methods=['GET', 'POST'])
 def upload(destinationname):
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -154,12 +158,33 @@ def upload(destinationname):
                 file.save(os.path.join(
                     current_app.config['IMAGE_UPLOADS'], destinationname + str(count) + ".jpg"))
                 count += 1
-            return redirect(url_for("sendImages", destination=destinationname))
+            return redirect(url_for("touristdestination.sendImages", destination=destinationname))
         else:
             return render_template('uploadImages.html', warning="Database Error")
 
     if(request.method == "GET"):
         return render_template('uploadImages.html', loggedIn=userData[0], firstname=firstname)
+
+
+@touristdestination.route('/sendImages/<destination>')
+def sendImages(destination):
+    mes = Message("TripIndia Uploaded Images", recipients=[
+                  current_app.config.get("ADMIN_ADDRESS")])
+
+    with current_app.open_resource(current_app.config.get("IMAGE_UPLOADS") + destination + "0.jpg") as img0:
+        mes.attach(destination + "0.jpg", 'image/jpg', img0.read())
+
+    with current_app.open_resource(current_app.config.get("IMAGE_UPLOADS") + destination + "1.jpg") as img1:
+        mes.attach(destination + "1.jpg", 'image/jpg', img1.read())
+
+    with current_app.open_resource(current_app.config.get("IMAGE_UPLOADS") + destination + "2.jpg") as img2:
+        mes.attach(destination + "2.jpg", 'image/jpg', img2.read())
+
+    with current_app.open_resource(current_app.config.get("IMAGE_UPLOADS") + destination + "3.jpg") as img3:
+        mes.attach(destination + "3.jpg", 'image/jpg', img3.read())
+
+    mail.send(mes)
+    return redirect(url_for('touristdestination.exploreRajasthan'))
 
 
 @touristdestination.route('/', methods=['GET'])

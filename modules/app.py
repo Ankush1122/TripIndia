@@ -1,13 +1,9 @@
-import os
-
+import MainRepo
 from flask import Flask, render_template, redirect, session, send_file, request
+from flask_mail import Mail, Message
 from flask.helpers import url_for
-from User import UserServices
-from flask_mail import Message, Mail
-from User.UserController import user
-from Hotel.HotelController import hotel
-from TouristsDestination.TouristDestinationController import touristdestination
-from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+
+import os
 
 app = Flask(__name__)
 
@@ -16,19 +12,23 @@ if(os.environ.get('ENV') == "Production"):
 else:
     app.config.from_object("config.DevelopmentConfig")
 
+mail = Mail(app)
+db = MainRepo.Repo(app.config)
+
+from User import UserServices
+from User.UserController import user
+from Hotel.HotelController import hotel
+from TouristsDestination.TouristDestinationController import touristdestination
+
 app.register_blueprint(user, url_prefix="/user")
 app.register_blueprint(hotel, url_prefix="/hotel")
 app.register_blueprint(touristdestination, url_prefix="/touristdestination")
 
 
-mail = Mail(app)
-
-
-userService = UserServices.UserServices(app.config)
-
-
 @app.route('/home', methods=['GET'])
 def home():
+    userService = UserServices.UserServices(db)
+
     if(app.config["ENV"] == "production"):
         userService.addView()
     totalVisits = userService.getTotalVisits()
@@ -56,53 +56,6 @@ def logo():
 @app.route('/Home', methods=['GET'])
 def redir():
     return redirect(url_for('home'))
-
-
-@app.route('/verificationlink/<token>')
-def verificationlink(token):
-    url = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-    try:
-        email = url.loads(token, salt=app.config["SALT"], max_age=600)
-        userService.activateUser(email, 1)
-        return render_template("emailverified.html", mail=email)
-
-    except SignatureExpired:
-        return "<h1>Your Link Expired</h1>"
-
-
-@app.route('/verifyemail/<userid>')
-def verifyemail(userid):
-
-    url = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-    token = url.dumps(userid,
-                      salt=app.config["SALT"])
-    print(token)
-    mes = Message("Email Verification", recipients=[userid])
-    mes.html = render_template(
-        'verficationMail.html', link=url_for('verificationlink', token=token, _external=True))
-    mail.send(mes)
-    return render_template('emailsent.html', mail=userid)
-
-
-@app.route('/sendImages/<destination>')
-def sendImages(destination):
-    mes = Message("TripIndia Uploaded Images", recipients=[
-                  app.config.get("ADMIN_ADDRESS")])
-
-    with app.open_resource(app.config.get("IMAGE_UPLOADS") + destination + "0.jpg") as img0:
-        mes.attach(destination + "0.jpg", 'image/jpg', img0.read())
-
-    with app.open_resource(app.config.get("IMAGE_UPLOADS") + destination + "1.jpg") as img1:
-        mes.attach(destination + "1.jpg", 'image/jpg', img1.read())
-
-    with app.open_resource(app.config.get("IMAGE_UPLOADS") + destination + "2.jpg") as img2:
-        mes.attach(destination + "2.jpg", 'image/jpg', img2.read())
-
-    with app.open_resource(app.config.get("IMAGE_UPLOADS") + destination + "3.jpg") as img3:
-        mes.attach(destination + "3.jpg", 'image/jpg', img3.read())
-
-    mail.send(mes)
-    return redirect(url_for('touristdestination.exploreRajasthan'))
 
 
 @app.before_request

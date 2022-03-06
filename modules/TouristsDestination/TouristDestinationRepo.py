@@ -1,9 +1,12 @@
 from TouristsDestination import TouristDestinationModel
-import MainRepo
 import json
 
 
-class Repo(MainRepo.Repo):
+class Repo():
+    def __init__(self, db) -> None:
+        self.conn = db.conn
+        self.cur = db.cur
+
     def createTouristDestinationTable(self):
         try:
             query = """CREATE TABLE IF NOT EXISTS "TouristDestination" (

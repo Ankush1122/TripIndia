@@ -1,11 +1,16 @@
 from flask import Blueprint, render_template, redirect, request, session, current_app, Flask
 from flask.helpers import url_for
-from User import UserModel, UserServices
-
+from flask_mail import Message
 from datetime import datetime
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+
 
 user = Blueprint("user", __name__, static_folder="static",
                  template_folder="templates")
+
+
+from User import UserModel, UserServices
+from app import db, mail
 
 
 @user.route('/login', methods=['GET', 'POST'])
@@ -21,7 +26,7 @@ def login():
 
         now = datetime.now()
         currenttime = now.strftime("%d/%m/%Y %H:%M:%S")
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         dataRequest = userService.login(user)
 
         if (dataRequest[0]):
@@ -45,7 +50,7 @@ def login():
 @user.route('/editprofile', methods=['GET', 'POST'])
 def editprofile():
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -60,7 +65,7 @@ def editprofile():
 
         user = UserModel.User(userData[1].index, form_data.get("name"), userData[1].userid, form_data.get(
             "password"), userData[1].usertype, userData[1].avatar, form_data.get("bio"), form_data.get("country"), form_data.get("occupation"), form_data.get("DOB"), userData[1].verification)
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         status = userService.editProfile(user)
         print(status[1])
         if(status[0]):
@@ -77,7 +82,7 @@ def editprofile():
 @user.route('/profile', methods=['GET'])
 def profile():
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         name = userData[1].name
         firstname = name
@@ -96,7 +101,7 @@ def profile():
 @user.route('/changepassword', methods=['GET', 'POST'])
 def changepassword():
     if (not session.get("index") is None):
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
             name = userData[1].name
@@ -114,7 +119,7 @@ def changepassword():
         newpassword = form_data["newpassword"]
         confirmpassword = form_data["confirmpassword"]
 
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         status = userService.changePassword(
             currentpassword, newpassword, confirmpassword, userData[1].userid)
         print(status[1])
@@ -137,7 +142,7 @@ def signup():
         return redirect(url_for('home'))
     if(request.method == "POST"):
         form_data = request.form
-        userService = UserServices.UserServices(current_app.config)
+        userService = UserServices.UserServices(db)
         status = userService.validateData(form_data.get("name"), form_data.get("email"), form_data.get(
             "password"), form_data.get("confirmpassword"), form_data.get("DOB"), form_data.get("DOB"))
         if(not status[0]):
@@ -147,17 +152,49 @@ def signup():
         status = userService.register(user)
         if(not status[0]):
             return render_template("signup.html", warning=status[1])
-        return redirect(url_for('verifyemail', userid=user.userid))
+        return redirect(url_for('user.verifyemail', userid=user.userid))
     if(request.method == "GET"):
         return render_template("signup.html")
-    return redirect(url_for('sendmail', userid="deshmukh.1@iitj.ac.in"))
 
 
 @user.route('/signout', methods=['GET'])
 def signout():
-    userService = UserServices.UserServices(current_app.config)
+    userService = UserServices.UserServices(db)
     userService.signout()
     return redirect(url_for('home'))
+
+
+@user.route('/verificationlink/<token>')
+def verificationlink(token):
+    url = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    userService = UserServices.UserServices(db)
+
+    try:
+        email = url.loads(token, salt=current_app.config["SALT"], max_age=600)
+        userService.activateUser(email, 1)
+        return render_template("emailverified.html", mail=email)
+
+    except SignatureExpired:
+        return "<h1>Your Link Expired</h1>"
+
+
+@user.route('/testing')
+def testing():
+    return render_template("verficationMail.html")
+
+
+@user.route('/verifyemail/<userid>')
+def verifyemail(userid):
+
+    url = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    token = url.dumps(userid,
+                      salt=current_app.config["SALT"])
+    print(token)
+    mes = Message("Email Verification", recipients=[userid])
+    mes.html = render_template(
+        'verficationMail.html', link=url_for('user.verificationlink', token=token, _external=True))
+    mail.send(mes)
+    return render_template('emailsent.html', mail=userid)
 
 
 @user.route('/', methods=['GET'])

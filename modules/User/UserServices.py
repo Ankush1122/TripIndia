@@ -1,4 +1,3 @@
-from mimetypes import init
 from flask import session
 from User import UserRepo
 import bcrypt
@@ -7,9 +6,8 @@ from datetime import date
 
 class UserServices:
 
-    def __init__(self, config) -> None:
-        self.config = config
-        self.db = UserRepo.Repo(self.config)
+    def __init__(self, db) -> None:
+        self.db = UserRepo.Repo(db)
 
     def login(self, user):
         if('@' not in user.userid or len(user.userid) < 3):

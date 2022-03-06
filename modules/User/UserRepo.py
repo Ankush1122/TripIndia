@@ -1,8 +1,11 @@
 from User import UserModel
-import MainRepo
 
 
-class Repo(MainRepo.Repo):
+class Repo():
+    def __init__(self, db) -> None:
+        self.conn = db.conn
+        self.cur = db.cur
+
     def createUserTable(self):
         try:
             query = """CREATE TABLE IF NOT EXISTS "User" (

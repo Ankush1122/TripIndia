@@ -3,10 +3,9 @@ from TouristsDestination.citiesRepo import Repo as CityRepo
 
 
 class Services:
-    def __init__(self, config) -> None:
-        self.config = config
-        self.db = Repo(self.config)
-        self.citydb = CityRepo(self.config)
+    def __init__(self, db) -> None:
+        self.db = Repo(db)
+        self.citydb = CityRepo(db)
 
     def getDestination(self, name):
         data = self.db.getDestinationByName(name)
