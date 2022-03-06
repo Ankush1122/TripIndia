@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  # Description
+=======
+# Description
+>>>>>>> 655159244fad2b7682ebf8b1f45ea82dada2dab5
 
 
 <p align="center">
@@ -34,4 +38,7 @@ We are currently first year B-Tech undergraduate students at IIT Jodhpur. You ca
 # Note
 
 Project is under development and not ready to use.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 655159244fad2b7682ebf8b1f45ea82dada2dab5
