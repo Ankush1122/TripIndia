@@ -1,22 +1,16 @@
-<<<<<<< HEAD
- # Description
-=======
 # Description
->>>>>>> 655159244fad2b7682ebf8b1f45ea82dada2dab5
-
 
 <p align="center">
   <img src="modules/static/assets/img/hero-img.png" />
 </p>
 
-
-
-A Tourists guide web application, Developed to help tourists plan a optimal tour with just few clicks using various constraints like budget, time, age, etc.
-Tourist often have to waste their time and resources in planning trip. They have to do all reaserach about places there budget, available hotels, in what order we should
-visit places to minimize time of travel. Our website will do same thing for tourists using algorithm it will generate optimal tour plan for tourists and provide with all 
-necessary information. Tourists can follow and track there plan during travel and update it any time. All travel time will be calculated using google maps services.
+A Tourists guide web application, Developed to help tourists plan a optimal tour with just few clicks using various constraints like budget, time, priority, etc.
+Tourist often have to waste their time and resources in planning trip. They have to do all reaserach about places, there budget, available hotels, in what order they should
+visit places to minimize time of travel. Our website will do same thing for tourists using algorithm, it will generate optimal tour plan for tourists and provide with all 
+necessary information. Tourists can follow and track there plan during trip and update it any time. All travel time will be calculated using google maps services.
 
 # Services
+
 1)Explore Various Places : Have detailed tourism related information, history, reviews about various beautiful locations.
 
 2)Generate Tour Plan : Generate most efficient and popular tour plan in just few click by providing us your tour related information like budget, days of stay, etc. 
@@ -28,7 +22,7 @@ necessary information. Tourists can follow and track there plan during travel an
 # Technologies
 
 Backend is Developed in Python using Flask framework. Frontend is developed in HTML, CSS, JS using Bootstrap framework. 'Postgres' is used as database. Flask Blueprint and
-Services-Model-Repository pattern is used to make code Modular and easily extendible. Website is currently hosted on Heroku. You can find it at  https://tripindia.herokuapp.com . Various libraries like Flask-mail, Bcrypt, 
+Services-Model-Repository pattern is used to make code Modular and extendible. Website is currently hosted on Heroku. You can find it at  https://tripindia.herokuapp.com . Various libraries like Flask-mail, Bcrypt, 
 Itsdangerous, etc. are used to provide different functionalities of application.
 
 # Contact Us
@@ -38,7 +32,3 @@ We are currently first year B-Tech undergraduate students at IIT Jodhpur. You ca
 # Note
 
 Project is under development and not ready to use.
-<<<<<<< HEAD
-
-=======
->>>>>>> 655159244fad2b7682ebf8b1f45ea82dada2dab5
