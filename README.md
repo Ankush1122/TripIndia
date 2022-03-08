@@ -31,4 +31,5 @@ We are currently first year B-Tech undergraduate students at IIT Jodhpur. You ca
 
 # Note
 
-Project is under development and not ready to use.
+Only User Module and TouristDestaination module are completed so far. Rest modules are under development and not ready to use.
+Also Plan generation Algorithm is yet to be implemented.
