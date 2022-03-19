@@ -20,6 +20,33 @@ class Services:
         return data
 
     def addDestination(self, destination):
+        verification = self.verify(destination)
+        if(not verification[0]):
+            return verification
+        status = self.db.addTouristDestination(destination)
+
+        if(status == False):
+            return [False, "Database Error"]
+
+        return [True, "Page Created Successfully"]
+
+    def updateDestination(self, destination):
+        verification = self.verify(destination)
+        if(not verification[0]):
+            return verification
+
+        status = self.db.updateTouristDestination(destination)
+
+        if(status == False):
+            return [False, "Database Error"]
+
+        return [True, "Page Updated Successfully"]
+
+    def getCitiesByState(self, state):
+        data = self.citydb.getCitiesByState(state)
+        return data
+
+    def verify(self, destination):
         if(destination.name == ""):
             return [False, "Name Field can not remain empty"]
 
@@ -31,6 +58,9 @@ class Services:
 
         if(destination.type == ""):
             return [False, "Type Field can not remain empty"]
+
+        if(destination.location == ""):
+            return [False, "Location Field can not remain empty"]
 
         if(destination.openingTime == ""):
             return [False, "Opening Time Field can not remain empty"]
@@ -56,19 +86,29 @@ class Services:
         if("RS" not in destination.spendingForForeigner):
             return [False, "Incorrect spendingForForeigner Format.  format eg- 100RS"]
 
-        if(destination.locationDirection == ""):
-            return [False, "locationDirection Field can not remain empty"]
+        if(destination.longitude == ""):
+            return [False, "longitude Field can not remain empty"]
 
-        dir = ["N", "S", "E", "W", "NW", "NE", "SW", "SE"]
+        isFloat = True
+        try:
+            float(destination.longitude)
+        except:
+            isFloat = False
 
-        if(destination.locationDirection not in dir):
-            return [False, "Incorrect locationDirection format. It should be one of N/S/E/W/NE/NW/SE/SW"]
+        if(not isFloat):
+            return [False, "longitude must be floating value"]
 
-        if(destination.locationDistance == ""):
-            return [False, "locationDistance Field can not remain empty"]
+        if(destination.latitude == ""):
+            return [False, "latitude Field can not remain empty"]
 
-        if(not destination.locationDistance.isnumeric()):
-            return [False, "locationDistance must be a number"]
+        isFloat = True
+        try:
+            float(destination.latitude)
+        except:
+            isFloat = False
+
+        if(not isFloat):
+            return [False, "latitude must be a floating value"]
 
         if(destination.timeRequired == ""):
             return [False, "timeRequired Field can not remain empty"]
@@ -77,28 +117,19 @@ class Services:
             return [False, "TIme Required must be a number"]
 
         if(destination.isMedCondAllowed == ""):
-            return [False, "isMedCondAllowed Field can not remain empty"]
+            return [False, "Medical Condition Field can not remain empty"]
 
         if(not (destination.isMedCondAllowed == "True" or destination.isMedCondAllowed == "False")):
-            return [False, "isMedCondAllowed must be 'True' or 'False'"]
+            return [False, "Medical Condition must be either 'True' or 'False'"]
 
         if(len(destination.blockData) < 5):
             return [False, "Atleast 5 Block Required"]
 
-        if(len(destination.blockData) > 30):
-            return [False, "Atmost 30 Block Allowed"]
+        if(len(destination.blockData) > 35):
+            return [False, "Atmost 35 Block Allowed"]
 
         for key, value in destination.blockData.items():
             if(key == "" or value == ""):
                 return [False, "Empty Block not allowed, try removing additional blocks"]
 
-        status = self.db.addTouristDestination(destination)
-
-        if(status == False):
-            return [False, "Database Error"]
-
-        return [True, "Page Created Successfully By "]
-
-    def getCitiesByState(self, state):
-        data = self.citydb.getCitiesByState(state)
-        return data
+        return [True, "Verified"]

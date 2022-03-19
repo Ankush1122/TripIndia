@@ -118,12 +118,12 @@
               <a href="#" data-filter="*" class="active">All</a>
               <a href="#" data-filter=".Historic">Historic</a>
               <a href="#" data-filter=".Religious">Religious</a>
-              <a href="#" data-filter=".Adventourous">Adventourous</a>
+              <a href="#" data-filter=".Adventurous">Adventurous</a>
               <a href="#" data-filter=".Natural">Natural</a>
             </div>
           </div>
         </div>
-        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+        <div id="portfolio-grid" class="row no-gutter">
           {% for destination in destinations %}
           <div class="{{'item '+destination.type+' col-sm-6 col-md-4 col-lg-4 mb-4'}}">
             <a href="{{'/touristdestination/explore/rajasthan/'+destination.city+'/'+destination.name}}"
@@ -154,7 +154,7 @@
               <img class="img-fluid" src=" {{ url_for('touristdestination.static', filename='assets/img/img_3.jpg') }}">
             </a>
           </div>
-          <div class="item Adventourous col-sm-6 col-md-4 col-lg-4 mb-4">
+          <div class="item Adventurous col-sm-6 col-md-4 col-lg-4 mb-4">
             <a href="#" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Coming soon</h3>

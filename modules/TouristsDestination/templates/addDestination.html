@@ -9,6 +9,8 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+    <meta id="BlocksCount" data-count="{{count}}">
+
     <!-- Favicons -->
     <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
     <link href="{{ url_for('touristdestination.static', filename='assets/img/apple-touch-icon.png') }}"
@@ -106,13 +108,14 @@
         <h1 class="text-center"> Add Destination</h1>
         <h6 class="text-center text-primary"> Please follow format precisely</h6>
         <p></p>
-        <form action="/touristdestination/addDestination" method="POST">
+        <form method="POST">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <h2>Primary Data:</h2>
+                    <h2>Database Data:</h2>
                     <div class="mb-3 mt-3">
                         <label class="form-label">Destination Name:</label>
-                        <input type="text" class="form-control" id="name" placeholder="eg. Kuldhara" name="name">
+                        <input type="text" class="form-control" id="name" placeholder="eg. Kuldhara" name="name"
+                            value="{{destination.name}}">
                     </div>
 
                     <div class="mb-3">
@@ -124,7 +127,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Select City:</label>
-                        <select class="form-select" id="city" name="city">
+                        <select class="form-select" id="city" name="city" value="{{destination.city}}">
                             <option>Jaisalmer</option>
                             <option>Jodhpur</option>
                             <option>Jaipur</option>
@@ -136,80 +139,87 @@
 
                     <div class="mb-3">
                         <label class="form-label">Select Destination Type:</label>
-                        <select class="form-select" id="type" name="type">
+                        <select class="form-select" id="type" name="type" value="{{destination.type}}">
                             <option>Historic</option>
                             <option>Religious</option>
-                            <option>Adventourous</option>
+                            <option>Adventurous</option>
                             <option>Natural</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Location - (text):</label>
+                        <input type="text" class="form-control" id="location"
+                            placeholder="eg. 18KM North-East of Jaisalmer City" name="location"
+                            value="{{destination.location}}">
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Opening Time:</label>
                         <input type="text" class="form-control" id="openingTime" placeholder="eg. 10:00AM"
-                            name="openingTime">
+                            name="openingTime" value="{{destination.openingTime}}">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Closing Time:</label>
                         <input type="text" class="form-control" id="closingTime" placeholder="eg. 6:00PM"
-                            name="closingTime">
+                            name="closingTime" value="{{destination.closingTime}}">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Time Required for Exploration(In Minutes) - (Number):</label>
                         <input type="text" class="form-control" id="timeRequired" placeholder="eg. 120"
-                            name="timeRequired">
+                            name="timeRequired" value="{{destination.timeRequired}}">
                     </div>
-                    <p class="text-primary">Include all possible spendings like entry fees, tourist guide charge, camera
-                        charge</p>
+                    <p class="text-primary">Include all possible spendings like entry fees, tourist guide charge,
+                        camera charge, possible snacks charges</p>
                     <div class="mb-3">
                         <label class="form-label">Estimated Spending for Indian(Include all possible spendings):</label>
                         <input type="text" class="form-control" id="spendingForIndian" placeholder="eg. 100RS"
-                            name="spendingForIndian">
+                            name="spendingForIndian" value="{{destination.spendingForIndian}}">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Estimated Spending for Foreigner(Include all possible
                             spendings):</label>
                         <input type="text" class="form-control" id="spendingForForeigner" placeholder="eg. 500RS"
-                            name="spendingForForeigner">
+                            name="spendingForForeigner" value="{{destination.spendingForForeigner}}">
                     </div>
-                    <p class="text-primary">If Location is 13km South West of city, fill following two fields as 'SW'
-                        and
-                        '13'</p>
+
+                    <p class="text-primary">Search Location on Google Maps, Left Clicking on Location will give you Two
+                        Numbers Longitude and Latitude respectievly</p>
                     <div class="mb-3">
-                        <label class="form-label">Location Direction(N of city/NE of city/NW of city/SE of city) -
-                            (one/two letters):</label>
-                        <input type="text" class="form-control" id="locationDirection" placeholder="eg. NE"
-                            name="locationDirection">
+                        <label class="form-label">Longitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="longitude" placeholder="eg. 26.471189763676115"
+                            name="longitude" value="{{destination.longitude}}">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Location Distance(7km NE of city) - (Number in km):</label>
-                        <input type="text" class="form-control" id="locationDistance" placeholder="eg. 7"
-                            name="locationDistance">
+                        <label class="form-label">Latitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="latitude" placeholder="eg. 73.11343701141091"
+                            name="latitude" value="{{destination.latitude}}">
                     </div>
 
                     <div class="mb-4">
                         <p class="text-primary">Only 'True' or 'False' allowed (case sensitive letters)</p>
-                        <label class="form-label">Is MedCondAllowed(True/False):</label>
+                        <label class="form-label">Is Medical Condition Allowed(True/False):</label>
                         <input type="text" class="form-control" id="isMedCondAllowed" placeholder="eg. True"
-                            name="isMedCondAllowed">
+                            name="isMedCondAllowed" value="{{destination.isMedCondAllowed}}">
                     </div>
 
-                    <h2>Blocks:</h2>
-                    <p class="text-primary">All above data was for tour planner purpose. Now add data that will be
+                    <h2>Page Blocks Data:</h2>
+                    <p class="text-primary">All above data was for tour plan purpose. Now add data that will be
                         visible on page. Add Blocks to page.</p>
                     <p class="text-primary">Blocks can be anything, examples are "Description" / "History" / "Prefered
-                        time for visit" / "Interesting facts" / "Things to Remember" / "Covid Protocols" / "How to
-                        Reach" / ""</p>
+                        Time for Visit" / "Interesting Facts" / "Things to Remember Before Visiting" / "Covid Protocols"
+                        / "How to Reach" / etc. ""</p>
                     <p class="text-primary">Try to be breif about information and add detailed information of tourist
                         place</p>
                     <p class="text-primary">Paste all information in Block Data column. Most of times data will be large
                         so you will not be able to see it clearly after pasting. So verify spelling mistakes and other
                         possible mistakes before pasting.</p>
 
+                    {% if destination.name == "" %}
                     <div id="data">
                         <div class="input-group mb-3 mt-4">
                             <input type="text" name="title1" id="title1" class="form-control m-input"
@@ -275,6 +285,24 @@
                             </div>
                         </div>
                     </div>
+                    {% else %}
+                    {% for title,Data in destination.blockData.items() %}
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input rows="1" name="{{'title'+loop.index|string }}" id="{{'title' + loop.index|string }}"
+                                class="form-control m-input" placeholder="Block Title" value="{{ title }}"
+                                autocomplete="off">
+                            <textarea rows="1" name="{{'data' + loop.index|string }}"
+                                id="{{'data' + loop.index|string }}" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"> {{ Data }} </textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {%endif%}
 
                     <div id="newRow"></div>
                     <button id="addRow" type="button" class="btn btn-info">Add Block</button>
@@ -285,7 +313,7 @@
 
 
                     <div class="text-center mt-4 mb-4">
-                        <button type="submit" class="btn btn-primary">Create Page</button>
+                        <button type="submit" class="btn btn-primary">Create/Update Page</button>
                     </div>
 
                 </div>
@@ -363,12 +391,12 @@
 
     <script type="text/javascript">
         // add row
-        var count = 6
+        var count = $('#BlocksCount').data("count") + 1
         $("#addRow").click(function () {
             var html = '';
             html += '<div id="data">';
             html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="title' + count + '" id="title' + count + '" class="form-control m-input" placeholder = "Block Title" autocomplete = "off" > ';
+            html += '<input rows="1" name="title' + count + '" id="title' + count + '" class="form-control m-input" placeholder = "Block Title" autocomplete = "off" > ';
             html += '<textarea rows="1" name="data' + count + '" id="data' + count + '" class="form-control m-input" placeholder = "Block Data" autocomplete = "off" ></textarea> ';
             html += '<div class="input-group-append">';
             html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
@@ -382,7 +410,6 @@
         // remove row
         $(document).on('click', '#removeRow', function () {
             $(this).closest('#data').remove();
-            count--;
         });
     </script>
 

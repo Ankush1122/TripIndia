@@ -67,30 +67,16 @@ def touristDestination(cityname, destination):
     service = Services(db)
     data = service.getDestination(destination)
     if(data[0] and data[1].city == cityname):
-        dir = ""
-        for i in range(len(data[1].locationDirection)):
-            if(data[1].locationDirection[i] == "N"):
-                dir += "North"
-            if(data[1].locationDirection[i] == "S"):
-                dir += "South"
-            if(data[1].locationDirection[i] == "E"):
-                dir += "East"
-            if(data[1].locationDirection[i] == "W"):
-                dir += "West"
-            if i == 0:
-                dir += "-"
-        location = data[1].locationDistance + \
-            "km " + dir + " of " + data[1].city + " city"
         data[1].timeRequired = int((data[1].timeRequired + 30) / 60)
         authorname = userService.getUserName(data[1].author)
-        return render_template('touristdestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], location=location, authorname=authorname)
+        return render_template('touristdestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], authorname=authorname, userid=userData[1].userid)
     else:
         print("redirecting")
         return redirect(url_for('touristdestination.exploreRajasthan'))
 
 
-@touristdestination.route('/addDestination', methods=['GET', 'POST'])
-def addDestination():
+@touristdestination.route('/addDestination/<place>', methods=['GET', 'POST'])
+def addDestination(place):
     if (not session.get("index") is None):
         userService = UserServices.UserServices(db)
         userData = userService.getUserSession(session.get("index"))
@@ -106,28 +92,44 @@ def addDestination():
     if(userData[0] == False or not (userData[1].usertype == "admin" or userData[1].usertype == "superadmin")):
         return redirect(url_for('user.login'))
 
+    newPlace = (place == "new")
+
     if(request.method == "POST"):
 
         formdata = request.form
         blockData = {}
-        for i in range(1, 31):
+        for i in range(1, 100):
             title = "title" + str(i)
             data = "data" + str(i)
             if title in formdata:
                 blockData[formdata.get(title)] = formdata.get(data)
         destination = TouristDestination(None, formdata.get(
-            "name"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime"), formdata.get("closingTime"), formdata.get("spendingForIndian"), formdata.get("spendingForForeigner"), formdata.get("isMedCondAllowed"), formdata.get("locationDirection"), formdata.get("locationDistance"), formdata.get("timeRequired"), blockData, userData[1].userid)
+            "name"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime"), formdata.get("closingTime"), formdata.get("spendingForIndian"), formdata.get("spendingForForeigner"), formdata.get("isMedCondAllowed"), formdata.get("location"), formdata.get("longitude"), formdata.get("latitude"), formdata.get("timeRequired"), blockData, userData[1].userid)
 
         service = Services(db)
-        data = service.addDestination(destination)
-        if(data[0]):
-            return redirect(url_for('touristdestination.upload', destinationname=destination.name))
-
+        if(newPlace):
+            data = service.addDestination(destination)
+            print(data)
+            if(data[0]):
+                return redirect(url_for('touristdestination.upload', destinationname=destination.name))
         else:
-            return render_template('addDestination.html', warning=data[1], firstname=firstname, loggedIn=userData[0])
+            data = service.updateDestination(destination)
+            if(data[0]):
+                return render_template('addDestination.html', success=data[1], firstname=firstname, loggedIn=userData[0], destination=destination, count=len(destination.blockData))
+        return render_template('addDestination.html', warning=data[1], firstname=firstname, loggedIn=userData[0], destination=destination, count=len(destination.blockData))
 
     if(request.method == "GET"):
-        return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname)
+        if(newPlace):
+            destination = TouristDestination(
+                "", "", "", "", "", "", "", "", "", "", "", "", "", None, "")
+            return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname, destination=destination, count=5)
+        else:
+            service = Services(db)
+            data = service.getDestination(place)
+            if(data[0] and data[1].author == userData[1].userid):
+                return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], count=len(data[1].blockData))
+            else:
+                return "You are not authorised to access this page"
 
 
 @touristdestination.route('/uploadimages/<destinationname>', methods=['GET', 'POST'])

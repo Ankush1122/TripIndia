@@ -155,7 +155,7 @@
             <div class="portfolio-info">
               <h3 class="text-uppercase">{{destination.name}}</h3>
               <ul>
-                <li><strong>Location</strong>: {{location}}</li>
+                <li><strong>Location</strong>: {{destination.location}}</li>
                 <li><strong>Destination Type</strong>: {{destination.type}}</li>
                 <li><strong>Opening and Closing Time</strong>: {{destination.openingTime}} to
                   {{destination.closingTime}}</li>
@@ -185,6 +185,12 @@
           </div>
         </div>
 
+        {% if destination.author == userid %}
+        <div class="text-end mt-4 mb-4">
+          <a class="btn btn-info" href="{{'/touristdestination/addDestination/' + destination.name}}" role="button">Edit
+            Page</a>
+        </div>
+        {% endif %}
       </div>
     </section><!-- End Portfolio Details Section -->
 
