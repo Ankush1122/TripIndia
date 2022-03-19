@@ -61,15 +61,18 @@ def touristDestination(cityname, destination):
             firstname = name
             if " " in name:
                 firstname = name.split()[0]
+            userid = userData[1].name
     else:
         userData = [False, None]
         firstname = ""
+        userid = ""
     service = Services(db)
     data = service.getDestination(destination)
     if(data[0] and data[1].city == cityname):
         data[1].timeRequired = int((data[1].timeRequired + 30) / 60)
         authorname = userService.getUserName(data[1].author)
-        return render_template('touristdestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], authorname=authorname, userid=userData[1].userid)
+
+        return render_template('touristdestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], authorname=authorname, userid=userid)
     else:
         print("redirecting")
         return redirect(url_for('touristdestination.exploreRajasthan'))
