@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title> LOG IN - TRIP INDIA</title>
 
-    <link rel="shortcut icon" href="{{ url_for('user.static', filename='assets/images/fav.jpg') }}">
     <link rel="stylesheet" href="{{ url_for('user.static', filename='assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('user.static', filename='assets/css/fontawsom-all.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('user.static', filename='assets/css/style.css') }}">
     <link href="{{ url_for('user.static', filename='assets/images/hero-img.png') }}" rel="icon">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ url_for('user.static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ url_for('user.static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('user.static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('user.static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('user.static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('user.static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ url_for('user.static', filename='assets/css/login.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
 
     <!-- Google Fonts -->
     <!-- <script src="{{ url_for('static', filename='assets/js/hashing.js') }}"></script> -->
@@ -36,20 +35,80 @@
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
-    <header id="header">
-        <div class="container d-flex align-items-center justify-content-between">
+    <!-- start banner Area -->
+    <div class="section1 banner-area" id="home">
+        <!-- Start Header Area -->
+        <header class="default-header">
+            <p></p>
+            <div class="row">
+                <div class="col-7 col-md-4">
+                    <h1 class="headTitle" style="text-align: center;"><a href="/">Trip India<span>.</span></a></h1>
+                </div>
+                <div class="col-5 col-md-8">
+                    <nav class="navbar navbar-expand-lg  navbar-light">
+                        <div class="container">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="text-white lnr lnr-menu"></span>
+                            </button>
 
-            <div class="logo">
-                <h1><a href="/">Trip India<span>.</span></a></h1>
-                <p> </p>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                            <div class="collapse navbar-collapse justify-content-end align-items-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+
+
+                                    <!-- Uncomment below if you prefer to use an image logo -->
+                                    <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/home#about">About</a></li>
+                                    <li><a href="/home#services">Services</a></li>
+                                    <li><a href="/home#contact">Contact</a></li>
+                                    <li><a href="/home#analytics">Analytics</a></li>
+                                    <li><a href="/touristdestination">Explore</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
             </div>
+            <p></p>
 
+        </header>
+        <!-- End Header Area -->
+    </div>
+    <div class="container-fluid">
+        <div style="height:200px;"></div>
+
+        <div class="no-padding loginBox">
+            <h1 style="color: aliceblue;text-align: center;">SIGN IN</h1>
+            <div style="height:40px;"></div>
+            <form action="/user/login" method="POST">
+                <div class="inputBox">
+                    <input id="userid" type="text" name="userid" placeholder="Email">
+                    <p></p>
+                    <input id="password" type="password" name="password" placeholder="Password">
+                </div>
+                <p></p>
+                <p class="text-danger no-margin"> {{warning}}</p>
+                <p></p>
+                <input type="submit" name="" value="Login">
+                <p></p>
+            </form>
+            <a style="color:aliceblue;" href="#">Forget Password<br> </a>
+            <p></p>
+            <div class="text-center">
+                <p>Don't Have an Account ? <a href="/user/signup" style="color:aliceblue;">Sign-Up Now</a>
+                </p>
+            </div>
         </div>
-    </header><!-- End Header -->
+    </div>
+    <div style="height: 600px;"></div>
 
+    <!--
+    <div style="height: 100px;"></div>
     <div class="container-fluid">
 
         <div class=" no-pdding login-box">
@@ -107,20 +166,20 @@
             </div>
         </div>
     </div>
-
-    <div class="h-25"></div>
+-->
     <!-- ======= Footer ======= -->
-
+    <div style="height: 20px;"></div>
     <footer id="footer">
-
         <div class="footer-top">
-
+            <div class="" style="text-align: center;height: 275px;">
+                <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+                    height="300px" width="300px">
+            </div>
             <div class="container">
 
                 <div class="row  justify-content-center">
-                    <div class="col-lg-6" data-aos="fade-in">
-                        <h3>Trip India</h3>
-                        <p>A Journey Of A Thousand Miles Begins With A Single Step</p>
+                    <div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+                        <h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
                     </div>
                 </div>
 
@@ -153,16 +212,17 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
-                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+                Designed by <a href="#contact">ED GROUP 10 IIT J</a>
             </div>
         </div>
     </footer><!-- End Footer -->
-    <script src="{{ url_for('user.static', filename='assets/vendor/aos/aos.js') }}"></script>
-    <script src="{{ url_for('user.static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('user.static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ url_for('user.static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ url_for('user.static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script src="{{ url_for('user.static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ url_for('user.static', filename='assets/js/main.js') }}"></script>

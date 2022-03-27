@@ -12,6 +12,7 @@ class Repo():
             query = """CREATE TABLE IF NOT EXISTS "TouristDestination" (
                 "index" SERIAL UNIQUE,
                 "name" TEXT UNIQUE PRIMARY KEY,
+                "state" TEXT,
                 "city" TEXT,
 	            "type" TEXT,
                 "openingtime" TEXT,
@@ -34,8 +35,8 @@ class Repo():
 
     def addTouristDestination(self, destination):
         try:
-            query = """INSERT INTO "TouristDestination" ( "name" ,"city","type","openingtime","closingtime","spendingforindian","spendingforforeigner","isMedCondAllowed","location", "longitude", "latitude","timerequired","blockData","author") VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}');""".format(
-                destination.name, destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.author)
+            query = """INSERT INTO "TouristDestination" ( "name" ,"state","city","type","openingtime","closingtime","spendingforindian","spendingforforeigner","isMedCondAllowed","location", "longitude", "latitude","timerequired","blockData","author") VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}');""".format(
+                destination.name, destination.state, destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.author)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
@@ -46,7 +47,8 @@ class Repo():
     def updateTouristDestination(self, destination):
         try:
             query = """UPDATE "TouristDestination" 
-                    SET "city" = '{}',
+                    SET "state" = '{}',
+                        "city" = '{}',
                         "type" = '{}',
                         "openingtime" = '{}',
                         "closingtime" = '{}',
@@ -59,7 +61,7 @@ class Repo():
                         "timerequired" = {},
                         "blockData" = '{}',
                         "author" = '{}'
-                    WHERE "name" = '{}';""".format(destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.author, destination.name)
+                    WHERE "name" = '{}';""".format(destination.state, destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.author, destination.name)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
@@ -74,7 +76,7 @@ class Repo():
             self.cur.execute(query)
             data = self.cur.fetchall()
             destination = TouristDestinationModel.TouristDestination(
-                data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7], data[0][8], data[0][9], data[0][10], data[0][11], data[0][12], json.loads(data[0][13]), data[0][14])
+                data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7], data[0][8], data[0][9], data[0][10], data[0][11], data[0][12], data[0][13], json.loads(data[0][14]), data[0][15])
         except Exception as e:
             print(e)
             return [False, None]
@@ -87,7 +89,7 @@ class Repo():
             self.cur.execute(query)
             data = self.cur.fetchall()
             destination = TouristDestinationModel.TouristDestination(
-                data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7], data[0][8], data[0][9], data[0][10], data[0][11], data[0][12], json.loads(data[0][13]), data[0][14])
+                data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6], data[0][7], data[0][8], data[0][9], data[0][10], data[0][11], data[0][12], data[0][13], json.loads(data[0][14]), data[0][15])
         except Exception as e:
             print(e)
             return [False, None]
@@ -104,7 +106,7 @@ class Repo():
         destinations = []
         for data in table:
             destination = TouristDestinationModel.TouristDestination(
-                data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], json.loads(data[13]), data[14])
+                data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13], json.loads(data[14]), data[15])
             destinations.append(destination)
         return [True, destinations]
 
@@ -120,7 +122,7 @@ class Repo():
         destinations = []
         for data in table:
             destination = TouristDestinationModel.TouristDestination(
-                data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], json.loads(data[13]), data[14])
+                data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13], json.loads(data[14]), data[15])
             destinations.append(destination)
         return [True, destinations]
 

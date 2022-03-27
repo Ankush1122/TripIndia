@@ -8,7 +8,6 @@ class Repo():
             query = """CREATE TABLE IF NOT EXISTS "Cities" (
                 "index" SERIAL UNIQUE,
                 "name" TEXT UNIQUE PRIMARY KEY,
-                "knownas" TEXT,
                 "state" TEXT
             );"""
             self.cur.execute(query)
@@ -17,10 +16,10 @@ class Repo():
             return False
         return True
 
-    def addCity(self, name, knownas, state):
+    def addCity(self, name, state):
         try:
-            query = """INSERT INTO "Cities" ( "name" ,"knownas", "state") VALUES ('{}','{}','{}');""".format(
-                name, knownas, state)
+            query = """INSERT INTO "Cities" ( "name" , "state") VALUES ('{}','{}');""".format(
+                name, state)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
@@ -34,8 +33,8 @@ class Repo():
                 name)
             self.cur.execute(query)
             data = self.cur.fetchall()
-            city = {"index": data[0][0], "name": data[0][1],
-                    "knownas": data[0][2], "state": data[0][3]}
+            city = {"index": data[0][0], "name": data[0]
+                    [1], "state": data[0][2]}
         except Exception as e:
             print(e)
             return [False, None]
@@ -43,12 +42,12 @@ class Repo():
 
     def getCityByIndex(self, index):
         try:
-            query = """ SELECT * from "cITIES" WHERE "index" = '{}';""".format(
+            query = """ SELECT * from "Cities" WHERE "index" = '{}';""".format(
                 index)
             self.cur.execute(query)
             data = self.cur.fetchall()
-            city = {"index": data[0][0], "name": data[0][1],
-                    "knownas": data[0][2], "state": data[0][3]}
+            city = {"index": data[0][0], "name": data[0]
+                    [1], "state": data[0][2]}
         except Exception as e:
             print(e)
             return [False, None]
@@ -64,8 +63,7 @@ class Repo():
             return [False, None]
         cities = []
         for data in table:
-            city = {"index": data[0][0], "name": data[0][1],
-                    "knownas": data[0][2], "state": data[0][3]}
+            city = {"index": data[0], "name": data[1], "state": data[2]}
             cities.append(city)
         return [True, cities]
 
@@ -80,8 +78,7 @@ class Repo():
             return [False, None]
         cities = []
         for data in table:
-            city = {"index": data[0][0], "name": data[0][1],
-                    "knownas": data[0][2], "state": data[0][3]}
+            city = {"index": data[0], "name": data[1], "state": data[2]}
             cities.append(city)
         return [True, cities]
 

@@ -11,17 +11,17 @@ class UserServices:
 
     def login(self, user):
         if('@' not in user.userid or len(user.userid) < 3):
-            return [False, "Invalid Email, try signing up"]
+            return [False, "Invalid Email"]
         if(len(user.password) < 6):
-            return [False, "Invalid Password, try signing up"]
+            return [False, "Incorrect Username or Password"]
         userData = self.db.getUserById(user.userid)
         if (userData[0]):
             if (bcrypt.checkpw(str(user.password).encode('utf-8'), str(userData[1].password).encode('utf-8'))):
                 return userData
             else:
-                return [False, userData[1]]
+                return [False, "Incorrect Username or Password"]
         else:
-            return userData
+            return [False, "User Does Not Exists, try signing up"]
 
     def register(self, user):
         if (self.db.isUserIdUsed(user.userid)):

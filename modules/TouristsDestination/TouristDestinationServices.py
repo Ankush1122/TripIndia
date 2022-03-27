@@ -13,7 +13,14 @@ class Services:
 
     def getDestinationsByCity(self, cityname):
         data = self.db.getDestinationsByCity(cityname)
-        return data
+        description = []
+        for i in data[1]:
+            description.append(self.getDescription(i.blockData))
+        return [data[0], data[1], description]
+
+    def getCountOfDestinations(self):
+        data = self.db.getAllDestinations()
+        return len(data[1])
 
     def getCityByName(self, cityname):
         data = self.citydb.getCityByName(cityname)
@@ -38,13 +45,25 @@ class Services:
         status = self.db.updateTouristDestination(destination)
 
         if(status == False):
-            return [False, "Database Error"]
+            return [False, "Cannot Change Name of Destination"]
 
         return [True, "Page Updated Successfully"]
 
     def getCitiesByState(self, state):
         data = self.citydb.getCitiesByState(state)
         return data
+
+    def getAllCities(self):
+        data = self.citydb.getAllCities()
+        return data
+
+    def getAllStates(self):
+        data = self.citydb.getAllCities()
+        states = []
+        for dict in data[1]:
+            if dict['state'] not in states:
+                states.append(dict['state'])
+        return states
 
     def verify(self, destination):
         if(destination.name == ""):
@@ -122,8 +141,8 @@ class Services:
         if(not (destination.isMedCondAllowed == "True" or destination.isMedCondAllowed == "False")):
             return [False, "Medical Condition must be either 'True' or 'False'"]
 
-        if(len(destination.blockData) < 5):
-            return [False, "Atleast 5 Block Required"]
+        if(len(destination.blockData) < 6):
+            return [False, "Atleast 6 Block Required"]
 
         if(len(destination.blockData) > 35):
             return [False, "Atmost 35 Block Allowed"]
@@ -133,3 +152,13 @@ class Services:
                 return [False, "Empty Block not allowed, try removing additional blocks"]
 
         return [True, "Verified"]
+
+    def getDescription(self, d):
+        s = d[next(iter(d))]
+        count = 0
+        i = 0
+        while count < 2:
+            if(s[i] == "."):
+                count += 1
+            i += 1
+        return s[:i]

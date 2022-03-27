@@ -91,6 +91,8 @@ def profile():
             firstname = name.split()[0]
 
         if (userData[0]):
+            print()
+            print(userData[1].usertype)
             return render_template('profile.html', firstname=firstname, name=name, userid=userData[1].userid, usertype=userData[1].usertype, bio=userData[1].bio, DOB=userData[1].DOB, avatar=userData[1].avatar, country=userData[1].country, occupation=userData[1].occupation)
         else:
             return redirect(url_for('user.login'))
@@ -131,7 +133,7 @@ def changepassword():
     if (request.method == "GET"):
 
         if (userData[0]):
-            return render_template('changepassword.html', firstname=firstname, name=name, bio=userData[1].bio, avatar=userData[1].avatar)
+            return render_template('changepassword.html', firstname=firstname, name=name, bio=userData[1].bio, avatar=userData[1].avatar, usertype=userData[1].usertype)
         else:
             return redirect(url_for('user.login'))
 
@@ -178,9 +180,14 @@ def verificationlink(token):
         return "<h1>Your Link Expired</h1>"
 
 
-@user.route('/testing')
-def testing():
-    return render_template("verficationMail.html")
+@user.route('/testing1', methods=['GET'])
+def testing1():
+    return render_template('emailsent.html')
+
+
+@user.route('/testing2', methods=['GET'])
+def testing2():
+    return render_template('emailverified.html')
 
 
 @user.route('/verifyemail/<userid>')

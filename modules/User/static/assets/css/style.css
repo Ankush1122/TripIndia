@@ -76,9 +76,9 @@ p {
   height: 100%; }
 
 ::placeholder {
-  color: #747f8a !important;
-  font-size: 13px;
-  opacity: .5 !important; }
+  color: #ffffff !important;
+  font-weight: bolder;
+  font-size: 13px; }
 
 .container-fluid {
   padding: 0px; }

@@ -1,7 +1,8 @@
 class TouristDestination:
-    def __init__(self, index, name, city, type, openingTime, closingTime, spendingForIndian, spendingForForeigner, isMedCondAllowed, location ,longitude, latitude, timeRequired, blockData, author) -> None:
+    def __init__(self, index, name, state, city, type, openingTime, closingTime, spendingForIndian, spendingForForeigner, isMedCondAllowed, location, longitude, latitude, timeRequired, blockData, author) -> None:
         self.index = index
         self.name = name
+        self.state = state
         self.city = city
         self.type = type
         self.openingTime = openingTime

@@ -13,8 +13,7 @@
 
     <!-- Favicons -->
     <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
-    <link href="{{ url_for('touristdestination.static', filename='assets/img/apple-touch-icon.png') }}"
-        rel="apple-touch-icon">
+
 
     <!-- Google Fonts -->
     <link
@@ -22,87 +21,81 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}"
-        rel="stylesheet">
-    <link
-        href="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}"
-        rel="stylesheet">
-    <link href="{{ url_for('touristdestination.static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}"
-        rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="{{ url_for('touristdestination.static', filename='assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
-    <header id="header">
-        <div class="container d-flex align-items-center justify-content-between">
+    <!-- start banner Area -->
+    <div class="section1 banner-area" id="home">
+        <!-- Start Header Area -->
+        <header class="default-header">
+            <p></p>
+            <div class="row">
+                <div class="col-7 col-md-4">
+                    <h1 class="headTitle" style="text-align: center;"><a href="/">Trip India<span>.</span></a></h1>
+                </div>
+                <div class="col-5 col-md-8">
+                    <nav class="navbar navbar-expand-lg  navbar-light">
+                        <div class="container">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="text-white lnr lnr-menu"></span>
+                            </button>
 
-            <div class="logo">
-                <h1><a href="/">Trip India<span>.</span></a></h1>
-                <p> </p>
+                            <div class="collapse navbar-collapse justify-content-end align-items-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav">
 
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <!-- Uncomment below if you prefer to use an image logo -->
+                                    <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/home#about">About</a></li>
+                                    <li><a href="/home#services">Services</a></li>
+                                    <li><a href="/home#contact">Contact</a></li>
+                                    <li><a href="/home#analytics">Analytics</a></li>
+                                    <li><a href="/touristdestination">Explore</a></li>
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                                            Hello {{firstname}}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/user/profile">My Profile</a>
+                                            <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
+                                                Destination</a>
+                                            <a class="dropdown-item" href="">My Plans</a>
+                                            <a class="dropdown-item" href="">My Reviews</a>
+                                            <a class="dropdown-item" href="/user/signout">Log Out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <p></p>
+                </div>
             </div>
-
-            <nav id="navbar" class="navbar">
-                <ul>
-
-                    <li><a class="nav-link scrollto active" href="/home">Home</a></li>
-                    <li><a class="nav-link scrollto" href="/home#about">About Us</a></li>
-                    <li><a class="nav-link scrollto" href="/home#services">Services</a></li>
-
-                    <li class="dropdown"><a href=""><span>Explore</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="/touristdestination/explore/rajasthan">Tourist Places</a></li>
-                            <li><a href="#">Hotels</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="nav-link scrollto" href="/home#services">Tour Planner</a></li>
-                    <li><a class="nav-link scrollto" href="/home#contact">Contact Us</a></li>
-
-                    {% if loggedIn %}
-                    <li class="dropdown"><a href=""><span>Hello {{firstname}} </span> <i
-                                class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="/user/profile">My Profile</a></li>
-                            <!--
-                        <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                          <ul>
-                            <li><a href="#">Deep Drop Down 1</a></li>
-                            <li><a href="#">Deep Drop Down 2</a></li>
-                            <li><a href="#">Deep Drop Down 3</a></li>
-                            <li><a href="#">Deep Drop Down 4</a></li>
-                            <li><a href="#">Deep Drop Down 5</a></li>
-                          </ul>
-                        </li>
-                        -->
-                            <li><a href="#">My Plans</a></li>
-                            <li><a href="#">My Reviews</a></li>
-                            <li><a href="/user/signout">Log Out</a></li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li><a class="getstarted scrollto" href="/user/login">Sign In</a></li>
-                    {% endif %}
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-
-                <!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
+        </header>
+        <!-- End Header Area -->
+    </div>
+    <div style="height: 100px;"></div>
     <div>
         <p></p>
         <h1 class="text-center"> Add Destination</h1>
@@ -120,20 +113,19 @@
 
                     <div class="mb-3">
                         <label class="form-label">Select State:</label>
-                        <select class="form-select" id="state" name="state">
-                            <option>Rajasthan</option>
+                        <select class="form-select" id="state" name="state" value="{{destination.state}}">
+                            {% for state in statesList %}
+                            <option>{{state}}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Select City:</label>
                         <select class="form-select" id="city" name="city" value="{{destination.city}}">
-                            <option>Jaisalmer</option>
-                            <option>Jodhpur</option>
-                            <option>Jaipur</option>
-                            <option>Ajmer</option>
-                            <option>Udaipur</option>
-                            <option>Bikaner</option>
+                            {% for city in citiesList%}
+                            <option> {{city['name']}} </option>
+                            {% endfor %}
                         </select>
                     </div>
 
@@ -212,7 +204,7 @@
                         visible on page. Add Blocks to page.</p>
                     <p class="text-primary">Blocks can be anything, examples are "Description" / "History" / "Prefered
                         Time for Visit" / "Interesting Facts" / "Things to Remember Before Visiting" / "Covid Protocols"
-                        / "How to Reach" / etc. ""</p>
+                        / "How to Reach" / Nearby Hotels /etc. ""</p>
                     <p class="text-primary">Try to be breif about information and add detailed information of tourist
                         place</p>
                     <p class="text-primary">Paste all information in Block Data column. Most of times data will be large
@@ -323,15 +315,16 @@
     <p></p>
     <!-- ======= Footer ======= -->
     <footer id="footer">
-
         <div class="footer-top">
-
+            <div class="" style="text-align: center;height: 275px;">
+                <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+                    height="300px" width="300px">
+            </div>
             <div class="container">
 
                 <div class="row  justify-content-center">
-                    <div class="col-lg-6" data-aos="fade-in">
-                        <h3>Trip India</h3>
-                        <p>A Journey Of A Thousand Miles Begins With A Single Step</p>
+                    <div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+                        <h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
                     </div>
                 </div>
 
@@ -364,7 +357,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
-                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+                Designed by <a href="#contact">ED GROUP 10 IIT J</a>
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -373,17 +366,12 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="{{ url_for('touristdestination.static', filename='assets/vendor/aos/aos.js') }}"></script>
-    <script
-        src="{{ url_for('touristdestination.static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script
-        src="{{ url_for('touristdestination.static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script
-        src="{{ url_for('touristdestination.static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script
-        src="{{ url_for('touristdestination.static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script
-        src="{{ url_for('touristdestination.static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
 
 
     <!-- Template Main JS File -->

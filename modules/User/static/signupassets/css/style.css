@@ -178,14 +178,8 @@ body {
   -ms-align-items: center; }
 
 .position-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%); }
+  position: relative;
+ }
 
 .signup-content {
   background: #fff;
@@ -267,11 +261,11 @@ body {
   color: #fff;
   text-transform: uppercase;
   border: none;
-  background-image: -moz-linear-gradient(to left, #74ebd5, #9face6);
+  background-image: -moz-linear-gradient(to left, #00f3c6, #002cf0);
   background-image: -ms-linear-gradient(to left, #74ebd5, #9face6);
   background-image: -o-linear-gradient(to left, #74ebd5, #9face6);
   background-image: -webkit-linear-gradient(to left, #74ebd5, #9face6);
-  background-image: linear-gradient(to left, #74ebd5, #9face6); }
+  background-image: linear-gradient(to left, #00ffd0, #414a75); }
 
 input[type=checkbox]:not(old) {
   width: 2em;
@@ -331,15 +325,15 @@ input[type=checkbox]:not(old):checked + label > span:before {
   color: #555; }
 
 .loginhere {
-  color: #555;
+  color: rgb(37, 37, 37);
   font-weight: 500;
   text-align: center;
-  margin-top: 91px;
+  margin-top: 56px;
   margin-bottom: 5px; }
 
 .loginhere-link {
   font-weight: 700;
-  color: #222; }
+  color: rgb(63, 0, 238); }
 
 .field-icon {
   float: right;

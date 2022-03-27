@@ -16,25 +16,25 @@ mail = Mail(app)
 db = MainRepo.Repo(app.config)
 
 from User import UserServices
+from TouristsDestination import TouristDestinationServices
 from User.UserController import user
-from Hotel.HotelController import hotel
 from TouristsDestination.TouristDestinationController import touristdestination
 
 app.register_blueprint(user, url_prefix="/user")
-app.register_blueprint(hotel, url_prefix="/hotel")
 app.register_blueprint(touristdestination, url_prefix="/touristdestination")
 
 
 @app.route('/home', methods=['GET'])
 def home():
     userService = UserServices.UserServices(db)
+    touristServices = TouristDestinationServices.Services(db)
 
     if(app.config["ENV"] == "production"):
         userService.addView()
     totalVisits = userService.getTotalVisits()
     plans = 0
     noOfusers = userService.getNumberOfUsers()
-    places = 1
+    places = touristServices.getCountOfDestinations()
     if (not session.get("index") is None):
         userData = userService.getUserSession(session.get("index"))
         if (userData[0]):
@@ -42,9 +42,9 @@ def home():
             firstname = name
             if " " in name:
                 firstname = name.split()[0]
-            return render_template("home.html", firstname=firstname, loggedIn=True, type=userData[1].usertype, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
+            return render_template("home1.html", firstname=firstname, loggedIn=True, type=userData[1].usertype, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
 
-    return render_template('home.html', loggedIn=False, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
+    return render_template('home1.html', loggedIn=False, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
 
 
 @app.route('/logo', methods=['GET'])

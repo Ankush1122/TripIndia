@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Trip India</title>
+	<meta charset="utf-8">
+	<meta name="format-detection" content="telephone=no" />
+	<!-- Favicons -->
+	<link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
+
+	<link rel="stylesheet" href="{{ url_for('touristdestination.static', filename='assets/css/camera.css') }}">
+	<link rel="stylesheet" href="{{ url_for('touristdestination.static', filename='assets/css/owl.carousel.css') }}">
+	<link rel="stylesheet" href="{{ url_for('touristdestination.static', filename='assets/css/style1.css') }} ">
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery-migrate-1.2.1.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/script.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/superfish.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery.ui.totop.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery.equalheights.js') }} "></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery.mobilemenu.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/jquery.easing.1.3.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/owl.carousel.js') }}"></script>
+	<script src="{{ url_for('touristdestination.static', filename='assets/js/camera.js') }}"></script>
+
+
+	<link href=" {{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
+
+
+	<link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+
+	<link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+	<!--[if (gt IE 9)|!(IE)]><!-->
+	<script
+		src="{{ url_for('touristdestination.static', filename='assets/js/jquery.mobile.customized.min.js')}}"></script>
+
+	<!--<![endif]-->
+	<script>
+		$(document).ready(function () {
+			jQuery('#camera_wrap').camera({
+				loader: false,
+				pagination: false,
+				minHeight: '444',
+				thumbnails: false,
+				height: '48.375%',
+				caption: true,
+				navigation: true,
+				fx: 'mosaic'
+			});
+			/*carousel*/
+			var owl = $("#owl");
+			owl.owlCarousel({
+				items: 2, //10 items above 1000px browser width
+				itemsDesktop: [995, 2], //5 items between 1000px and 901px
+				itemsDesktopSmall: [767, 2], // betweem 900px and 601px
+				itemsTablet: [700, 2], //2 items between 600 and 0
+				itemsMobile: [479, 1], // itemsMobile disabled - inherit from itemsTablet option
+				navigation: true,
+				pagination: false
+			});
+			$().UItoTop({ easingType: 'easeOutQuart' });
+		});
+	</script>
+	<!--[if lt IE 8]>
+		<div style=' clear: both; text-align:center; position: relative;'>
+			<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+				<img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+			</a>
+		</div>
+		<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<link rel="stylesheet" media="screen" href="css/ie.css">
+		<![endif]-->
+</head>
+
+<body>
+	<!--==============================header=================================-->
+	<!-- start banner Area -->
+	<div class="section1 banner-area" id="home">
+		<!-- Start Header Area -->
+		<header class="default-header">
+			<p></p>
+			<div class="row">
+				<div class="col-7 col-md-4">
+					<h1 class="headTitle" style="text-align: center;"><a style="color: aliceblue;" href="/">Trip
+							India<span>.</span></a></h1>
+				</div>
+				<div class="col-5 col-md-8">
+					<nav class="navbar navbar-expand-lg  navbar-light">
+						<div class="container">
+							<button class="navbar-toggler" type="button" data-toggle="collapse"
+								data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+								aria-expanded="false" aria-label="Toggle navigation">
+								<span class="text-white lnr lnr-menu"></span>
+							</button>
+
+							<div class="collapse navbar-collapse justify-content-end align-items-center"
+								id="navbarSupportedContent">
+								<ul class="navbar-nav">
+
+
+									<!-- Uncomment below if you prefer to use an image logo -->
+									<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+									<li><a href="/home">Home</a></li>
+									<li><a href="/home#about">About</a></li>
+									<li><a href="/home#services">Services</a></li>
+									<li><a href="/home#contact">Contact</a></li>
+									<li><a href="/home#analytics">Analytics</a></li>
+									<li><a href="/touristdestination">Explore</a></li>
+
+									{% if loggedIn and type == "user" %}
+									<li class="dropdown">
+										<a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+											Hello {{firstname}}
+										</a>
+										<div class="dropdown-menu" style="background: #222;">
+											<a class="dropdown-item" href="/user/profile">My Profile</a>
+											<a class="dropdown-item" href="">My Plans</a>
+											<a class="dropdown-item" href="">My Reviews</a>
+											<a class="dropdown-item" href="/user/signout">Log Out</a>
+										</div>
+									</li>
+								</ul>
+								{% elif loggedIn and (type == "admin" or type == "superadmin") %}
+								<li class="dropdown">
+									<a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+										Hello {{firstname}}
+									</a>
+									<div class="dropdown-menu" style="background: #222;">
+										<a class="dropdown-item" href="/user/profile">My Profile</a>
+										<a class="dropdown-item" href="/touristdestination/addDestination/new">Add
+											Destination</a>
+										<a class="dropdown-item" href="">My Plans</a>
+										<a class="dropdown-item" href="">My Reviews</a>
+										<a class="dropdown-item" href="/user/signout">Log Out</a>
+									</div>
+								</li>
+								</ul>
+								{% else %}
+								</ul>
+								<a href="/user/login" class="btn btn-round btn-success">Sign In</a>
+								{% endif %}
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<!-- End Header Area -->
+	</div>
+	<div class="page1" id="top">
+		<div class="slider_wrapper">
+			<div id="camera_wrap" class="">
+				<div data-src="{{ url_for('touristdestination.static', filename='assets/img/Cities/Delhi.jpg') }}">
+					<div class="caption">
+						<h1 style="font-weight:bold;font-family:Georgia;">DELHI</h1>
+						<a href="/touristdestination/explore/Delhi">EXPLORE</a>
+					</div>
+				</div>
+				<div data-src="{{ url_for('touristdestination.static', filename='assets/img/Cities/Jaipur2.jpg') }}">
+					<div class="caption fadeIn">
+						<h1 style="font-weight: bold;font-family:Georgia;">JAIPUR</h1>
+						<a href="/touristdestination/explore/Jaipur">EXPLORE</a>
+					</div>
+				</div>
+				<div data-src="{{ url_for('touristdestination.static', filename='assets/img/Cities/Mumbai2.jpg') }}">
+					<div class="caption fadeIn">
+						<h1 style="font-weight: bold;font-family:Georgia;">MUMBAI</h1>
+						<a href="/touristdestination/explore/Mumbai">EXPLORE</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--==============================Content=================================-->
+		<div class="content">
+			<div class="container_12">
+				<div class="banners">
+					{% for i in range(0,30,3) %}
+					<div class="grid_4">
+						<div class="banner">
+							<img src="{{ url_for('touristdestination.static', filename='assets/img/Cities/LQ/'+ cities[i]['name'] +'.jpg') }}"
+								alt="">
+							<div class="label">
+								<div class="title">{{cities[i]["name"]}}</div>
+								<a href="{{ '/touristdestination/explore/'+cities[i]['name'] }}">EXPLORE</a>
+							</div>
+						</div>
+					</div>
+					<div class="grid_4">
+						<div class="banner">
+							<img src="{{ url_for('touristdestination.static', filename='assets/img/Cities//LQ/'+ cities[i+1]['name'] +'.jpg') }}"
+								alt="">
+							<div class="label">
+								<div class="title">{{cities[i+1]["name"]}}</div>
+								<a href="{{ '/touristdestination/explore/'+cities[i+1]['name'] }}">EXPLORE</a>
+							</div>
+						</div>
+					</div>
+					<div class="grid_4">
+						<div class="banner">
+							<img src="{{ url_for('touristdestination.static', filename='assets/img/Cities/LQ/'+ cities[i+2]['name'] +'.jpg') }}"
+								alt="">
+							<div class="label">
+								<div class="title">{{cities[i+2]["name"]}}</div>
+								<a href="{{ '/touristdestination/explore/'+cities[i+2]['name'] }}">EXPLORE</a>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<!-- ======= Footer ======= -->
+		<footer id="footer">
+			<div class="footer-top">
+				<div class="" style="text-align: center;height: 275px;">
+					<img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+						height="300px" width="300px">
+				</div>
+				<div class="container">
+					<div class="row  justify-content-center">
+						<div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+							<h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
+						</div>
+					</div>
+
+					<div class="row footer-newsletter justify-content-center">
+						<div class="col-lg-6">
+							<form action="" method="post">
+								<input type="email" name="email" placeholder="Enter your Email"><input type="submit"
+									value="Subscribe">
+							</form>
+						</div>
+					</div>
+
+					<div class="social-links">
+						<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+						<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+						<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+						<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+						<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container footer-bottom clearfix">
+				<div class="copyright">
+					&copy; Copyright <strong><span>Trip India</span></strong>. All Rights Reserved
+				</div>
+				<div class="credits">
+					<!-- All the links in the footer should remain intact. -->
+					<!-- You can delete the links only if you purchased the pro version. -->
+					<!-- Licensing information: https://bootstrapmade.com/license/ -->
+					<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
+					Designed by <a href="#contact">ED GROUP 10 IIT J</a>
+				</div>
+			</div>
+		</footer><!-- End Footer -->
+		<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+				class="bi bi-arrow-up-short"></i></a>
+
+		<script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+
+		<script src="{{ url_for('touristdestination.static', filename='assets/js/main.js') }}"></script>
+	</div>
+</body>
+
+</html>
