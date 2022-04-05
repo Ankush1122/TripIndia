@@ -73,8 +73,8 @@ def touristDestination(cityname, destination):
     else:
         userData = [False, None]
         firstname = ""
-        userid = ""
         usertype = ""
+        userid = ""
     service = Services(db)
     data = service.getDestination(destination)
     if(data[0] and data[1].city == cityname):
@@ -110,16 +110,16 @@ def addDestination(place):
     cities = service.getAllCities()
 
     if(request.method == "POST"):
-
-        formdata = request.form
         blockData = {}
+        formdata = request.form
         for i in range(1, 100):
             title = "title" + str(i)
             data = "data" + str(i)
             if title in formdata:
-                blockData[formdata.get(title)] = formdata.get(data)
+                blockData[formdata.get(title).replace("'", "")] = formdata.get(
+                    data).replace("'", "")
         destination = TouristDestination(None, formdata.get(
-            "name"), formdata.get("state"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime"), formdata.get("closingTime"), formdata.get("spendingForIndian"), formdata.get("spendingForForeigner"), formdata.get("isMedCondAllowed"), formdata.get("location"), formdata.get("longitude"), formdata.get("latitude"), formdata.get("timeRequired"), blockData, userData[1].userid)
+            "name").replace("'", ""), formdata.get("state"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime").replace("'", ""), formdata.get("closingTime").replace("'", ""), formdata.get("spendingForIndian").replace("'", ""), formdata.get("spendingForForeigner").replace("'", ""), formdata.get("isMedCondAllowed"), formdata.get("location").replace("'", ""), formdata.get("longitude"), formdata.get("latitude"), formdata.get("timeRequired"), blockData, userData[1].userid)
 
         if(newPlace):
             data = service.addDestination(destination)
@@ -138,7 +138,7 @@ def addDestination(place):
             return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname, destination=destination, count=5, statesList=states, citiesList=cities[1])
         else:
             data = service.getDestination(place)
-            if(data[0] and data[1].author == userData[1].userid):
+            if(data[0] and (data[1].author == userData[1].userid or userData[1].usertype == "superadmin")):
                 return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname, destination=data[1], count=len(data[1].blockData), statesList=states, citiesList=cities[1])
             else:
                 return "You are not authorised to access this page"

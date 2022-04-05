@@ -31,7 +31,7 @@ def login():
 
         if (dataRequest[0]):
             if(dataRequest[1].verification == 0):
-                return redirect(url_for('verifyemail', userid=dataRequest[1].userid))
+                return redirect(url_for('user.verifyemail', userid=dataRequest[1].userid))
             else:
                 print("logged in successfully")
                 session["index"] = dataRequest[1].index
@@ -196,8 +196,8 @@ def verifyemail(userid):
     url = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = url.dumps(userid,
                       salt=current_app.config["SALT"])
-    print(token)
-    mes = Message("Email Verification", recipients=[userid])
+    mes = Message(recipients=[
+                  userid], subject="Email Verification")
     mes.html = render_template(
         'verficationMail.html', link=url_for('user.verificationlink', token=token, _external=True))
     mail.send(mes)

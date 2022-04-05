@@ -40,6 +40,8 @@ class Repo():
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
+            with open("logs.txt", 'a', encoding='utf-8') as f:
+                f.write(e + "\n")
             print(e)
             return False
         return True
@@ -59,12 +61,13 @@ class Repo():
                         "longitude" = '{}', 
                         "latitude" = '{}',
                         "timerequired" = {},
-                        "blockData" = '{}',
-                        "author" = '{}'
-                    WHERE "name" = '{}';""".format(destination.state, destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.author, destination.name)
+                        "blockData" = '{}'
+                    WHERE "name" = '{}';""".format(destination.state, destination.city, destination.type, destination.openingTime, destination.closingTime, destination.spendingForIndian, destination.spendingForForeigner, destination.isMedCondAllowed, destination.location, destination.longitude, destination.latitude, destination.timeRequired, json.dumps(destination.blockData), destination.name)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
+            with open("logs.txt", 'a', encoding='utf-8') as f:
+                f.write(e + "\n")
             print(e)
             return False
         return True

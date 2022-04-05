@@ -113,36 +113,67 @@
 
                     <div class="mb-3">
                         <label class="form-label">Select State:</label>
-                        <select class="form-select" id="state" name="state" value="{{destination.state}}">
+                        <select class="form-select" id="state" name="state">
                             {% for state in statesList %}
+                            {%if state == destination.state%}
+                            <option selected>{{state}}</option>
+                            {%else%}
                             <option>{{state}}</option>
+                            {%endif%}
                             {% endfor %}
+
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Select City:</label>
-                        <select class="form-select" id="city" name="city" value="{{destination.city}}">
+                        <select class="form-select" id="city" name="city">
                             {% for city in citiesList%}
+                            {%if city['name'] == destination.city%}
+                            <option selected> {{city['name']}} </option>
+                            {%else%}
                             <option> {{city['name']}} </option>
+                            {%endif%}
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Select Destination Type:</label>
-                        <select class="form-select" id="type" name="type" value="{{destination.type}}">
-                            <option>Historic</option>
+                        <select class="form-select" id="type" name="type">
+                            {%if destination.type == "Historic"%}
+                            <option selected>Historic</option>
                             <option>Religious</option>
                             <option>Adventurous</option>
                             <option>Natural</option>
+                            {%elif destination.type == "Religious"%}
+                            <option>Historic</option>
+                            <option selected>Religious</option>
+                            <option>Adventurous</option>
+                            <option>Natural</option>
+                            {%elif destination.type == "Adventurous"%}
+                            <option>Historic</option>
+                            <option>Religious</option>
+                            <option selected>Adventurous</option>
+                            <option>Natural</option>
+                            {%elif destination.type == "Natural"%}
+                            <option>Historic</option>
+                            <option>Religious</option>
+                            <option>Adventurous</option>
+                            <option selected>Natural</option>
+                            {%else%}
+                            <option>Historic</option>
+                            <option>Religious</option>
+                            <option>Adventurous</option>
+                            <option selected>Natural</option>
+                            {%endif%}
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Location - (text):</label>
                         <input type="text" class="form-control" id="location"
-                            placeholder="eg. 18KM North-East of Jaisalmer City" name="location"
+                            placeholder="eg. 18KM North-East of Jaisalmer City OR Jaisalmer City" name="location"
                             value="{{destination.location}}">
                     </div>
 
@@ -179,7 +210,8 @@
                     </div>
 
                     <p class="text-primary">Search Location on Google Maps, Left Clicking on Location will give you Two
-                        Numbers Longitude and Latitude respectievly</p>
+                        Numbers Longitude and Latitude respectievly. Click on those 2 numbers to copy them. This values
+                        need to be exact.</p>
                     <div class="mb-3">
                         <label class="form-label">Longitude - (Floating Value):</label>
                         <input type="text" class="form-control" id="longitude" placeholder="eg. 26.471189763676115"
@@ -328,15 +360,6 @@
                     </div>
                 </div>
 
-                <div class="row footer-newsletter justify-content-center">
-                    <div class="col-lg-6">
-                        <form action="" method="post">
-                            <input type="email" name="email" placeholder="Enter your Email"><input type="submit"
-                                value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-
                 <div class="social-links">
                     <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                     <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -357,7 +380,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
-                Designed by <a href="#contact">ED GROUP 10 IIT J</a>
+                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
             </div>
         </div>
     </footer><!-- End Footer -->

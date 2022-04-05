@@ -447,7 +447,7 @@ h6, .h6 {
 }
 
 .display-4 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 300;
   line-height: 1.1;
 }
@@ -790,7 +790,7 @@ pre code {
 .headTitle{
   font-weight: bold;
   font-family: 'Times New Roman';
-  font-size: 50px;
+  font-size: 45px;
 }
 
 @media (min-width: 576px) {

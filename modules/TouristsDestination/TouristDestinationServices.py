@@ -30,6 +30,7 @@ class Services:
         verification = self.verify(destination)
         if(not verification[0]):
             return verification
+
         status = self.db.addTouristDestination(destination)
 
         if(status == False):
@@ -41,11 +42,10 @@ class Services:
         verification = self.verify(destination)
         if(not verification[0]):
             return verification
-
         status = self.db.updateTouristDestination(destination)
 
         if(status == False):
-            return [False, "Cannot Change Name of Destination"]
+            return [False, "Database Error"]
 
         return [True, "Page Updated Successfully"]
 
