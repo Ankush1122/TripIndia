@@ -162,10 +162,10 @@
                             <option>Adventurous</option>
                             <option selected>Natural</option>
                             {%else%}
-                            <option>Historic</option>
+                            <option selected>Historic</option>
                             <option>Religious</option>
                             <option>Adventurous</option>
-                            <option selected>Natural</option>
+                            <option>Natural</option>
                             {%endif%}
                         </select>
                     </div>
@@ -229,6 +229,27 @@
                         <label class="form-label">Is Medical Condition Allowed(True/False):</label>
                         <input type="text" class="form-control" id="isMedCondAllowed" placeholder="eg. True"
                             name="isMedCondAllowed" value="{{destination.isMedCondAllowed}}">
+                    </div>
+
+
+                    <div class="mb-4">
+                        <p class="text-primary">Go To Google Maps. Go to share and select embedded maps option. Copy
+                            Paste the line between 'src' tag.</p>
+                        <label class="form-label">Embedded Map Src:</label>
+                        <input type="text" class="form-control" id="mapSrc" name="mapSrc"
+                            value="{{destination.mapSrc}}">
+                    </div>
+
+
+                    <div class="mb-4">
+                        <p class="text-primary">Calculate Rating using Number of Reviews and Overall Rating on Google
+                            Maps.</p>
+                        <label class="form-label">Rating(out of 100):</label>
+                        <input type="text" class="form-control" id="rating" name="rating"
+                            value="{{destination.rating}}">
+                        <p></p>
+                        <a class="btn btn-primary" href="/touristdestination/ratingCalculator" target="_blank">Calculate
+                            Rating</a>
                     </div>
 
                     <h2>Page Blocks Data:</h2>

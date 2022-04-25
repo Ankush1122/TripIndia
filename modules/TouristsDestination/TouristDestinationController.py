@@ -119,7 +119,7 @@ def addDestination(place):
                 blockData[formdata.get(title).replace("'", "")] = formdata.get(
                     data).replace("'", "")
         destination = TouristDestination(None, formdata.get(
-            "name").replace("'", ""), formdata.get("state"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime").replace("'", ""), formdata.get("closingTime").replace("'", ""), formdata.get("spendingForIndian").replace("'", ""), formdata.get("spendingForForeigner").replace("'", ""), formdata.get("isMedCondAllowed"), formdata.get("location").replace("'", ""), formdata.get("longitude"), formdata.get("latitude"), formdata.get("timeRequired"), blockData, userData[1].userid)
+            "name").replace("'", "").strip(), formdata.get("state"), formdata.get("city"), formdata.get("type"), formdata.get("openingTime").replace("'", "").strip(), formdata.get("closingTime").replace("'", "").strip(), formdata.get("spendingForIndian").replace("'", "").strip(), formdata.get("spendingForForeigner").replace("'", "").strip(), formdata.get("isMedCondAllowed"), formdata.get("location").replace("'", "").strip(), formdata.get("longitude").strip(), formdata.get("latitude").strip(), formdata.get("timeRequired").strip(), blockData, userData[1].userid, formdata.get("mapSrc").replace("'", "").strip(), formdata.get("rating").strip())
 
         if(newPlace):
             data = service.addDestination(destination)
@@ -134,7 +134,7 @@ def addDestination(place):
     if(request.method == "GET"):
         if(newPlace):
             destination = TouristDestination(
-                "", "", "", "", "", "", "", "", "", "", "", "", "", "", None, "")
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "", None, "", "", "")
             return render_template('addDestination.html', loggedIn=userData[0], firstname=firstname, destination=destination, count=5, statesList=states, citiesList=cities[1])
         else:
             data = service.getDestination(place)
@@ -178,6 +178,24 @@ def upload(destinationname):
 
     if(request.method == "GET"):
         return render_template('uploadImages.html', loggedIn=userData[0], firstname=firstname)
+
+
+@touristdestination.route('/testing', methods=['GET', 'POST'])
+def testing():
+    return render_template("planBasicInfo.html")
+
+
+@touristdestination.route('/ratingCalculator', methods=['GET', 'POST'])
+def calculate():
+    if(request.method == "POST"):
+        formdata = request.form
+        numberOfReiews = int(formdata.get("numberOfReviews"))
+        ratings = float(formdata.get("ratings"))
+        answer = int(numberOfReiews / 4000) + int(ratings * 10)
+        if(answer > 100):
+            answer = 100
+        return render_template("calculateRating.html", answer=answer, start=False)
+    return render_template("calculateRating.html", start=True)
 
 
 @touristdestination.route('/sendImages/<destination>')

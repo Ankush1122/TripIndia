@@ -127,7 +127,6 @@
     <!-- End Header Area -->
 
   </div>
-
   <div class="section1 default-banner active-blog-slider">
 
     <div class="item-slider relative" style="background: url(../static/assets/img/slider1.jpg);background-size: cover;">
@@ -188,6 +187,63 @@
   </div>
 
   <main id="main">
+    <!-- ======= Plan Section ======= -->
+    <section id="plan" class="plan section-bg" style="font-size: 20px;">
+      <div class="container">
+        <form action="/planData" method="POST">
+          <div class="section-title">
+            <h2 data-aos="fade-in">Let’s make a tour</h2>
+            <p data-aos="fade-in">
+              Get Started with Trip India, Generate Your First Tour Plan
+            </p>
+          </div>
+          <div class="row">
+            <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start">
+            </div>
+            <div class="col-xl-7 pl-0 pl-lg-5 pr-lg-1 d-flex align-items-stretch">
+              <div class="content d-flex flex-column justify-content-center">
+                <h3 data-aos="fade-in" data-aos-delay="100">Generate Plan</h3>
+                <div style="height: 20px;"></div>
+
+                <div class="row">
+                  <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
+                    <label class="form-label">Tour Starting Location : </label>
+                    <select class="form-select" id="state" name="state">
+                      <option selected>Rajasthan</option>
+                    </select>
+                  </div>
+                  <div style="height: 20px;"></div>
+
+                  <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
+                    <label class="form-label" for="startingDate">Tour Starting Date :
+                    </label>
+                    <input class="form-control" id="startingDate" name="startingDate" type="date" />
+                  </div>
+                  <div style="height: 20px;"></div>
+
+                  <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
+                    <label class="form-label" for="endingDate">Tour Ending Date : </label>
+                    <input class="form-control" id="endingDate" name="endingDate" type="date" />
+                  </div>
+                  <div style="height: 10px;"></div>
+
+                  <p class="text-danger" style="font-size: 18px;">{{warning}}</p>
+
+                  <div style="height: 10px;"></div>
+
+                  <div class="col-12 col-xl-10 col-lg-12 d-grid mt-6">
+                    <button class="btn btn-primary" type="submit">Get Started With
+                      Tour
+                      Plan</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section><!-- End Plan Section -->
+
     <!-- ======= About Section ======= -->
     <section id="about" class="about section-bg">
       <div class="container">

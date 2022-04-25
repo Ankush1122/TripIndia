@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Trip India</title>
+
+    <!-- Favicons -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
+
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div style="height: 350px;"></div>
+    <div class="container">
+        <form class="text-center" method="POST">
+            <h1>Rating Calculator</h1>
+            <div style="height:30px;"></div>
+            <div class="form-group">
+                <label style="font-weight: bold;">Rating On Google Map(out of 5) : </label>
+                <input placeholder="Enter Rating" id="ratings" name="ratings">
+            </div>
+
+            <div style="height: 50px;"></div>
+
+            <div class="form-group">
+                <label style="font-weight: bold;">Number of Reviews On Google Map :</label>
+                <input placeholder="Enter Number Of Reviews" id="numberOfReviews" name="numberOfReviews">
+            </div>
+            <div style="height: 50px;"></div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+            <p></p>
+            {% if not start %}
+            <h4>Rating : {{answer}}</h4>
+            {% endif %}
+        </form>
+    </div>
+</body>
+
+</html>

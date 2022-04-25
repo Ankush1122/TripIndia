@@ -141,6 +141,9 @@ class Services:
         if(not (destination.isMedCondAllowed == "True" or destination.isMedCondAllowed == "False")):
             return [False, "Medical Condition must be either 'True' or 'False'"]
 
+        if(not destination.rating.isnumeric() and int(destination.rating) <= 100 and int(destination.rating) >= 0):
+            return [False, "Rating must between 0-100"]
+
         if(len(destination.blockData) < 6):
             return [False, "Atleast 6 Block Required"]
 
@@ -162,3 +165,13 @@ class Services:
                 count += 1
             i += 1
         return s[:i]
+
+    def getTimeRequired(self, city):
+        data = self.db.getDestinationsByCity(city)
+        timeRequired = 0
+        if(data[0]):
+            for destination in data[1]:
+                timeRequired += destination.timeRequired
+            return [True, timeRequired]
+        else:
+            return [False, 0]

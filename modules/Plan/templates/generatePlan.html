@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<!-- Favicons -->
+	<link href="{{ url_for('static', filename='assets/img/hero-img1.png') }}" rel="icon">
+
+	<title>Trip India</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{{ url_for('plan.static', filename='css/bootstrap.min.css') }}" />
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{{ url_for('plan.static', filename='css/style.css') }}" />
+
+</head>
+
+<body>
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form">
+						<div class="form-header">
+							<h1 style="font-size: 50px;">Trip India</h1>
+						</div>
+						<form method="POST">
+							<div class="form-header">
+								<h1 style="font-size: 30px; font-weight: lighter;">Generate Your Tour Plan</h1>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Starting Date</span>
+										<input class="form-control" name="startingDate" type="date"
+											value={{startingDate}} required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Ending Date</span>
+										<input class="form-control" name="endingDate" type="date" value={{endingDate}}
+											required>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<span class="form-label">No Of Travellers</span>
+										<select class="form-control">
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+											<option>6</option>
+											<option>7</option>
+											<option>8</option>
+											<option>9</option>
+											<option>10</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<span class="form-label">Nationality</span>
+										<select class="form-control">
+											<option>Indian</option>
+											<option>Foreigner</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<span class="form-label">Plan Type</span>
+										<select class="form-control">
+											<option>Most Popular</option>
+											<option>Time Efficient</option>
+											<option>Budget Efficient</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Budget (In RS)</span>
+										<input class="form-control" type="number" value="10000" required>
+										<span class="select-arrow"></span>
+
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Any Traveller Above Age 60</span>
+										<select class="form-control">
+											<option>Yes</option>
+											<option selected>No</option>
+										</select>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<span class="form-label">Number Of Cities to be included in Plan</span>
+										<input class="form-control" name="noOfCities" id="noOfCities" type="number"
+											value="3" required>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-btn">
+								<button class="submit-btn" style="font-size: 18px;">Let's Begin</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

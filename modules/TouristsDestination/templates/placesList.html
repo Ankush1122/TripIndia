@@ -184,6 +184,17 @@
 						<div class="text1 col1"><a
 								href="{{ '/touristdestination/explore/' + cityname + '/'+destinations[i].name }}">{{destinations[i].name}}</a>
 						</div>
+						<div class="stars">
+							{% if destinations[i].rating != 0 %}
+							{% for i in range(((destinations[i].rating + 19) / 20) | int) %}
+							<span class="fa fa-star star-active"></span>
+							{% endfor %}
+							{% for i in range(5 - ((destinations[i].rating + 19)/ 20) | int) %}
+							<span class="fa fa-star-o"></span>
+							{% endfor %}
+							{% endif %}
+						</div>
+
 						<p> {{descriptions[i]}} </p>
 						<a href="{{ '/touristdestination/explore/' + cityname + '/'+destinations[i].name }}"
 							class="link1">LEARN MORE</a>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Trip India</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <meta id="BlocksCount" data-count="{{count}}">
+
+    <!-- Favicons -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
+
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <!-- start banner Area -->
+    <div class="section1 banner-area" id="home">
+        <!-- Start Header Area -->
+        <header class="default-header">
+            <p></p>
+            <div class="row">
+                <div class="col-7 col-md-4">
+                    <h1 class="headTitle" style="text-align: center;"><a href="/">Trip India<span>.</span></a></h1>
+                </div>
+                <div class="col-5 col-md-8">
+                    <nav class="navbar navbar-expand-lg  navbar-light">
+                        <div class="container">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="text-white lnr lnr-menu"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse justify-content-end align-items-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+
+
+                                    <!-- Uncomment below if you prefer to use an image logo -->
+                                    <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/home#about">About</a></li>
+                                    <li><a href="/home#services">Services</a></li>
+                                    <li><a href="/home#contact">Contact</a></li>
+                                    <li><a href="/home#analytics">Analytics</a></li>
+                                    <li><a href="/touristdestination">Explore</a></li>
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                                            Hello {{firstname}}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/user/profile">My Profile</a>
+                                            <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
+                                                Destination</a>
+                                            <a class="dropdown-item" href="">My Plans</a>
+                                            <a class="dropdown-item" href="">My Reviews</a>
+                                            <a class="dropdown-item" href="/user/signout">Log Out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <p></p>
+                </div>
+            </div>
+        </header>
+        <!-- End Header Area -->
+    </div>
+    <div style="height: 100px;"></div>
+    <div>
+        <p></p>
+        <h1 class="text-center"> Add Destination</h1>
+        <h6 class="text-center text-primary"> Please follow format precisely</h6>
+        <p></p>
+        <form method="POST">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <h2>Database Data:</h2>
+                    <div class="mb-3 mt-3">
+                        <label class="form-label">Destination Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="eg. Kuldhara" name="name"
+                            value="{{destination.name}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Location - (text):</label>
+                        <input type="text" class="form-control" id="location"
+                            placeholder="eg. 18KM North-East of Jaisalmer City OR Jaisalmer City" name="location"
+                            value="{{destination.location}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Opening Time:</label>
+                        <input type="text" class="form-control" id="openingTime" placeholder="eg. 10:00AM"
+                            name="openingTime" value="{{destination.openingTime}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Closing Time:</label>
+                        <input type="text" class="form-control" id="closingTime" placeholder="eg. 6:00PM"
+                            name="closingTime" value="{{destination.closingTime}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Time Required for Exploration(In Minutes) - (Number):</label>
+                        <input type="text" class="form-control" id="timeRequired" placeholder="eg. 120"
+                            name="timeRequired" value="{{destination.timeRequired}}">
+                    </div>
+                    <p class="text-primary">Include all possible spendings like entry fees, tourist guide charge,
+                        camera charge, possible snacks charges</p>
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Spending for Indian(Include all possible spendings):</label>
+                        <input type="text" class="form-control" id="spendingForIndian" placeholder="eg. 100RS"
+                            name="spendingForIndian" value="{{destination.spendingForIndian}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Spending for Foreigner(Include all possible
+                            spendings):</label>
+                        <input type="text" class="form-control" id="spendingForForeigner" placeholder="eg. 500RS"
+                            name="spendingForForeigner" value="{{destination.spendingForForeigner}}">
+                    </div>
+
+                    <p class="text-primary">Search Location on Google Maps, Left Clicking on Location will give you Two
+                        Numbers Longitude and Latitude respectievly. Click on those 2 numbers to copy them. This values
+                        need to be exact.</p>
+                    <div class="mb-3">
+                        <label class="form-label">Longitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="longitude" placeholder="eg. 26.471189763676115"
+                            name="longitude" value="{{destination.longitude}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Latitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="latitude" placeholder="eg. 73.11343701141091"
+                            name="latitude" value="{{destination.latitude}}">
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-primary">Only 'True' or 'False' allowed (case sensitive letters)</p>
+                        <label class="form-label">Is Medical Condition Allowed(True/False):</label>
+                        <input type="text" class="form-control" id="isMedCondAllowed" placeholder="eg. True"
+                            name="isMedCondAllowed" value="{{destination.isMedCondAllowed}}">
+                    </div>
+
+
+                    <div class="mb-4">
+                        <p class="text-primary">Go To Google Maps. Go to share and select embedded maps option. Copy
+                            Paste the line between 'src' tag.</p>
+                        <label class="form-label">Embedded Map Src:</label>
+                        <input type="text" class="form-control" id="mapSrc" name="mapSrc"
+                            value="{{destination.mapSrc}}">
+                    </div>
+
+
+                    <div class="mb-4">
+                        <p class="text-primary">Calculate Rating using Number of Reviews and Overall Rating on Google
+                            Maps.</p>
+                        <label class="form-label">Rating(out of 100):</label>
+                        <input type="text" class="form-control" id="rating" name="rating"
+                            value="{{destination.rating}}">
+                        <p></p>
+                        <a class="btn btn-primary" href="/touristdestination/ratingCalculator" target="_blank">Calculate
+                            Rating</a>
+                    </div>
+
+                    <h2>Page Blocks Data:</h2>
+                    <p class="text-primary">All above data was for tour plan purpose. Now add data that will be
+                        visible on page. Add Blocks to page.</p>
+                    <p class="text-primary">Blocks can be anything, examples are "Description" / "History" / "Prefered
+                        Time for Visit" / "Interesting Facts" / "Things to Remember Before Visiting" / "Covid Protocols"
+                        / "How to Reach" / Nearby Hotels /etc. ""</p>
+                    <p class="text-primary">Try to be breif about information and add detailed information of tourist
+                        place</p>
+                    <p class="text-primary">Paste all information in Block Data column. Most of times data will be large
+                        so you will not be able to see it clearly after pasting. So verify spelling mistakes and other
+                        possible mistakes before pasting.</p>
+
+                    {% if destination.name == "" %}
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title1" id="title1" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data1" id="data1" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title2" id="title2" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data2" id="data2" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title3" id="title3" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data3" id="data3" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input type="text" name="title4" id="title4" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data4" id="data4" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input rows="1" name="title5" id="title5" class="form-control m-input"
+                                placeholder="Block Title" autocomplete="off">
+                            <textarea rows="1" name="data5" id="data5" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"></textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    {% for title,Data in destination.blockData.items() %}
+                    <div id="data">
+                        <div class="input-group mb-3 mt-4">
+                            <input rows="1" name="{{'title'+loop.index|string }}" id="{{'title' + loop.index|string }}"
+                                class="form-control m-input" placeholder="Block Title" value="{{ title }}"
+                                autocomplete="off">
+                            <textarea rows="1" name="{{'data' + loop.index|string }}"
+                                id="{{'data' + loop.index|string }}" class="form-control m-input"
+                                placeholder="Block Data" autocomplete="off"> {{ Data }} </textarea>
+
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {%endif%}
+
+                    <div id="newRow"></div>
+                    <button id="addRow" type="button" class="btn btn-info">Add Block</button>
+
+                    <p></p>
+                    <p class="text-danger">{{warning}}</p>
+                    <p class="text-success">{{success}}</p>
+
+
+                    <div class="text-center mt-4 mb-4">
+                        <button type="submit" class="btn btn-primary">Create/Update Page</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <p></p>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="" style="text-align: center;height: 275px;">
+                <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+                    height="300px" width="300px">
+            </div>
+            <div class="container">
+
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+                        <h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Trip India</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
+                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{{ url_for('touristdestination.static', filename='assets/js/main.js') }}"></script>
+
+    <script type="text/javascript">
+        // add row
+        var count = $('#BlocksCount').data("count") + 1
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="data">';
+            html += '<div class="input-group mb-3">';
+            html += '<input rows="1" name="title' + count + '" id="title' + count + '" class="form-control m-input" placeholder = "Block Title" autocomplete = "off" > ';
+            html += '<textarea rows="1" name="data' + count + '" id="data' + count + '" class="form-control m-input" placeholder = "Block Data" autocomplete = "off" ></textarea> ';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+            count++;
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#data').remove();
+        });
+    </script>
+
+</body>
+
+</html

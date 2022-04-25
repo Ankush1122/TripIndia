@@ -128,6 +128,7 @@
       <h1 class="text-center" style="font-family: Georgia;font-weight: bold;">{{destination.name}}</h1>
       <div class="text-center post-meta">{{destination.city}} , {{destination.state}}</div>
       <div style="height: 40px;"></div>
+
       {% for title,data in destination.blockData.items() %}
       {% if loop.index == 1 %}
       <div class="container" data-aos="fade-up">
@@ -197,6 +198,20 @@
       <div style="height:70px;"></div>
 
       {% endfor %}
+
+      <div class="container" data-aos="fade-up">
+        <div class="row justify-content-between align-items-lg-center">
+          <div class="col-lg-5 mb-4 mb-lg-0">
+            <h2 class="display-4 mb-4" style="font-family: Georgia;">Location</h2>
+
+            <p><iframe src="{{destination.mapSrc}}" width="1040" height="450" style="border:0;" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:20px;"></div>
+
       <div class="row">
         <div class="col-5 col-lg-8"></div>
         <div class="col-7 col-lg-4">

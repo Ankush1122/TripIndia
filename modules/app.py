@@ -1,3 +1,4 @@
+from crypt import methods
 import MainRepo
 from flask import Flask, render_template, redirect, session, send_file, request
 from flask_mail import Mail, Message
@@ -19,10 +20,14 @@ db = MainRepo.Repo(app.config)
 from User import UserServices
 from TouristsDestination import TouristDestinationServices
 from User.UserController import user
+from Plan.PlanController import plan
+from Hotel.HotelController import hotel
 from TouristsDestination.TouristDestinationController import touristdestination
 
 app.register_blueprint(user, url_prefix="/user")
 app.register_blueprint(touristdestination, url_prefix="/touristdestination")
+app.register_blueprint(plan, url_prefix="/plan")
+app.register_blueprint(hotel, url_prefix="/hotel")
 
 
 @app.route('/home', methods=['GET'])
@@ -43,9 +48,42 @@ def home():
             firstname = name
             if " " in name:
                 firstname = name.split()[0]
-            return render_template("home1.html", firstname=firstname, loggedIn=True, type=userData[1].usertype, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
+            return render_template("home1.html", firstname=firstname, loggedIn=True, type=userData[1].usertype, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places, warning="")
 
     return render_template('home1.html', loggedIn=False, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places)
+
+
+@app.route('/planData', methods=['POST', 'GET'])
+def planData():
+    if(request.method == "POST"):
+        userService = UserServices.UserServices(db)
+        touristServices = TouristDestinationServices.Services(db)
+
+        if(app.config["ENV"] == "production"):
+            userService.addView()
+        totalVisits = userService.getTotalVisits()
+        plans = 0
+        noOfusers = userService.getNumberOfUsers()
+        places = touristServices.getCountOfDestinations()
+        if (not session.get("index") is None):
+            userData = userService.getUserSession(session.get("index"))
+            if (userData[0]):
+                name = userData[1].name
+                firstname = name
+                if " " in name:
+                    firstname = name.split()[0]
+            else:
+                return render_template('home1.html', loggedIn=False, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places, warning="Login Required")
+        else:
+            return render_template('home1.html', loggedIn=False, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places, warning="Login Required")
+
+        formdata = request.form
+        startingDate = formdata.get('startingDate')
+        endingDate = formdata.get('endingDate')
+        state = formdata.get('state')
+        if(startingDate > endingDate):
+            return render_template("home1.html", firstname=firstname, loggedIn=True, type=userData[1].usertype, visits=totalVisits, plans=plans, noOfusers=noOfusers, places=places, warning="Invalid Dates")
+        return redirect(url_for('plan.openingForm', state=state, startingDate=startingDate, endingDate=endingDate))
 
 
 @app.route('/logo', methods=['GET'])

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Trip India</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <meta id="BlocksCount" data-count="{{count}}">
+
+    <!-- Favicons -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/img/hero-img.png') }}" rel="icon">
+
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ url_for('touristdestination.static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <!-- start banner Area -->
+    <div class="section1 banner-area" id="home">
+        <!-- Start Header Area -->
+        <header class="default-header">
+            <p></p>
+            <div class="row">
+                <div class="col-7 col-md-4">
+                    <h1 class="headTitle" style="text-align: center;"><a href="/">Trip India<span>.</span></a></h1>
+                </div>
+                <div class="col-5 col-md-8">
+                    <nav class="navbar navbar-expand-lg  navbar-light">
+                        <div class="container">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="text-white lnr lnr-menu"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse justify-content-end align-items-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+
+
+                                    <!-- Uncomment below if you prefer to use an image logo -->
+                                    <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/home#about">About</a></li>
+                                    <li><a href="/home#services">Services</a></li>
+                                    <li><a href="/home#contact">Contact</a></li>
+                                    <li><a href="/home#analytics">Analytics</a></li>
+                                    <li><a href="/touristdestination">Explore</a></li>
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                                            Hello {{firstname}}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/user/profile">My Profile</a>
+                                            <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
+                                                Destination</a>
+                                            <a class="dropdown-item" href="">My Plans</a>
+                                            <a class="dropdown-item" href="">My Reviews</a>
+                                            <a class="dropdown-item" href="/user/signout">Log Out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <p></p>
+                </div>
+            </div>
+        </header>
+        <!-- End Header Area -->
+    </div>
+    <div style="height: 100px;"></div>
+    <div>
+        <p></p>
+        <h1 class="text-center"> Add Hotel</h1>
+        <h6 class="text-center text-primary"> Please follow format precisely</h6>
+        <p></p>
+        <form method="POST">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <div class="mb-3 mt-3">
+                        <label class="form-label">Hotel Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Hotel Name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select City:</label>
+                        <select class="form-select" id="city" name="city">
+                            <option>Ajmer</option>
+                            <option>Bikaner</option>
+                            <option>Jaipur</option>
+                            <option>Jaisalmer</option>
+                            <option>Jodhpur</option>
+                            <option>Mandawa</option>
+                            <option>Mount Abu</option>
+                            <option selected>Udaipur</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Hotel Type :</label>
+                        <select class="form-select" id="hotelType" name="hotelType">
+                            <option value="1">1 Star Hotel</option>
+                            <option value="2">2 Star Hotel</option>
+                            <option value="3">3 Star Hotel</option>
+                            <option value="4">4 Star Hotel</option>
+                            <option value="5" selected>5 Star Hotel</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Room Capacity:</label>
+                        <select class="form-select" id="roomCapacity" name="roomCapacity">
+                            <option> 1 </option>
+                            <option selected> 2 </option>
+                            <option> 3 </option>
+                            <option> 4 </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Room Price(In Rs):</label>
+                        <input type="number" class="form-control" id="roomPrice" name="roomPrice" value="2000">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Longitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="longitude" placeholder="Longitude" name="longitude">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Latitude - (Floating Value):</label>
+                        <input type="text" class="form-control" id="latitude" placeholder="Latitude" name="latitude">
+                    </div>
+
+                    <p class="text-danger">{{warning}}</p>
+                    <p class="text-success">{{success}}</p>
+
+
+                    <div class="text-center mt-4 mb-4">
+                        <button type="submit" class="btn btn-primary">Add Hotel</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <p></p>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="" style="text-align: center;height: 275px;">
+                <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+                    height="300px" width="300px">
+            </div>
+            <div class="container">
+
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+                        <h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Trip India</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
+                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{{ url_for('touristdestination.static', filename='assets/js/main.js') }}"></script>
+
+</body>
+
+</html>
