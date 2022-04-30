@@ -75,7 +75,7 @@
                                             <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
                                                 Destination</a>
                                             {% endif %}
-                                            <a class="dropdown-item" href="">My Plans</a>
+                                            <a class="dropdown-item" href="/plan/myplans">My Plans</a>
                                             <a class="dropdown-item" href="">My Reviews</a>
                                             <a class="dropdown-item" href="/user/signout">Log Out</a>
                                         </div>
@@ -109,9 +109,13 @@
                     <hr>
                     <div class="row mt-2 justify-content-center">
                         <div class="col-sm-10">
+                            {% if noOfCities == 1 %}
+                            <span class="form-label">City 1</span>
+                            {% else %}
                             <span class="form-label">Tour Starting City</span>
+                            {% endif %}
                             <select class="browser-default custom-select mb-4" id="city1" name="city1">
-                                <option>Ajmer</option>
+                                <!--                <option>Ajmer</option> -->
                                 <!--                                <option>Bikaner</option> -->
                                 <option>Jaipur</option>
                                 <option>Jaisalmer</option>
@@ -127,34 +131,36 @@
                         <div class="col-sm-10">
                             <span class="form-label">City {{i}}</span>
                             <select class="browser-default custom-select mb-4" id="city{{i}}" name="city{{i}}">
-                                <option>Ajmer</option>
-                                <option>Bikaner</option>
+                                <!--                    <option>Ajmer</option> -->
+                                <!--                   <option>Bikaner</option> -->
                                 <option>Jaipur</option>
                                 <option>Jaisalmer</option>
                                 <option>Jodhpur</option>
-                                <option>Mandawa</option>
-                                <option>Mount Abu</option>
+                                <!--                    <option>Mandawa</option> -->
+                                <!--                <option>Mount Abu</option> -->
                                 <option>Udaipur</option>
                             </select>
                         </div>
                     </div>
                     {% endfor %}
+                    {% if noOfCities != 1 %}
                     <div class="row mt-2 justify-content-center">
                         <div class="col-sm-10">
                             <span class="form-label">Tour Ending City</span>
                             <select class="browser-default custom-select mb-4" id="city{{noOfCities}}"
                                 name="city{{noOfCities}}">
-                                <option>Ajmer</option>
-                                <option>Bikaner</option>
+                                <!--             <option>Ajmer</option> -->
+                                <!--               <option>Bikaner</option> -->
                                 <option>Jaipur</option>
                                 <option>Jaisalmer</option>
                                 <option>Jodhpur</option>
-                                <option>Mandawa</option>
-                                <option>Mount Abu</option>
+                                <!--              <option>Mandawa</option> -->
+                                <!--            <option>Mount Abu</option> -->
                                 <option>Udaipur</option>
                             </select>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
                 <div style="height: 20px;"></div>
                 <div class="text-center">

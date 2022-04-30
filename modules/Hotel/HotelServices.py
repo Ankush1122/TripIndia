@@ -15,3 +15,7 @@ class Services:
     def getHotelsByCity(self, city):
         data = self.db.getHotelsByCity(city)
         return data
+
+    def getHotel(self, name):
+        data = self.db.getHotelByName(name)
+        return data

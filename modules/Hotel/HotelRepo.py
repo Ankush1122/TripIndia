@@ -1,4 +1,3 @@
-import imp
 from Hotel import HotelModel
 
 
@@ -90,7 +89,7 @@ class Repo:
             return False
         return True
 
-    def delteHotelTable(self):
+    def deleteHotelTable(self):
         try:
             query = """ DROP TABLE IF EXISTS "Hotel"; """
             self.cur.execute(query)

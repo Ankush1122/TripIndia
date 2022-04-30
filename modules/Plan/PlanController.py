@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, redirect, request, current_app, session
 from flask.helpers import url_for
 import json
+import pickle
+import codecs
+from datetime import date
 
 plan = Blueprint("plan", __name__, static_folder="static",
                  template_folder="templates")
@@ -115,23 +118,121 @@ def skeletonPlan():
     if(userData[0] == False):
         return redirect(url_for('user.login'))
 
+    today = date.today()
     tempDict = json.loads(request.args.get('tempDict'))
-    plandata = PlanData.PlanData(tempDict['startingDate'], tempDict['endingDate'], tempDict['budget'], tempDict['nationality'],
-                                 tempDict['planType'], tempDict['noOfTravellers'], tempDict['medicalCond'], tempDict['cities'])
+    plandata = PlanData.PlanData("", tempDict['startingDate'], tempDict['endingDate'], tempDict['budget'], 0, tempDict['nationality'],
+                                 tempDict['planType'], tempDict['noOfTravellers'], tempDict['medicalCond'], tempDict['cities'], "inactive", today.strftime("%B %d, %Y"), 0, userData[1].userid)
     skeletonPlan = planServices.generateSkeleton(plandata)
 
+    hotels = []
+    for city in plandata.cities:
+        data = hotelServices.getHotelsByCity(city)
+        if(data[0]):
+            hotels += data[1]
+
     if(request.method == "POST"):
-        return "This Module Is Under Development"
+        form = request.form
+        verification = planServices.verifySkeletonForm(form, len(skeletonPlan))
+        if(verification[0]):
+            skeletonPlan = planServices.finalSkeletonPlan(skeletonPlan, form)
+            return redirect(url_for('plan.finalPlan', skeletonPlan=codecs.encode(pickle.dumps(skeletonPlan), "base64").decode(), plandata=codecs.encode(pickle.dumps(plandata), "base64").decode()))
+        else:
+            return render_template("skeletonPlan.html", firstname=firstname, type=userType, skeletonPlan=skeletonPlan, hotels=hotels, warning=verification[1])
 
     if(request.method == "GET"):
-        hotels = []
-        for city in plandata.cities:
-            data = hotelServices.getHotelsByCity(city)
-            if(data[0]):
-                hotels += data[1]
         return render_template("skeletonPlan.html", firstname=firstname, type=userType, skeletonPlan=skeletonPlan, hotels=hotels)
 
 
-@plan.route('/', methods=['GET'])
+@ plan.route('/finalPlanPreview', methods=['GET', 'POST'])
+def finalPlan():
+    if (not session.get("index") is None):
+        userData = userService.getUserSession(session.get("index"))
+        if (userData[0]):
+            name = userData[1].name
+            userType = userData[1].usertype
+            firstname = name
+            if " " in name:
+                firstname = name.split()[0]
+    else:
+        userData = [False]
+        userType = ""
+        firstname = ""
+
+    if(userData[0] == False):
+        return redirect(url_for('user.login'))
+
+    if(request.method == "POST"):
+        form = request.form
+        planid = form.get('planid')
+        print(planid)
+
+        planServices.activatePlan(planid)
+        return redirect(url_for('plan.myPlans'))
+
+    if(request.method == "GET"):
+        skeletonPlan = pickle.loads(codecs.decode(request.args.get(
+            'skeletonPlan').encode(), "base64"))
+
+        plandata = pickle.loads(codecs.decode(request.args.get(
+            'plandata').encode(), "base64"))
+        [planSchedule, finalCost] = planServices.generateFinalPlan(
+            skeletonPlan, plandata)
+        hotelCost = planServices.hotelCost(
+            skeletonPlan, plandata.noOfTravellers)
+        plandata.hotelCost = hotelCost
+        plandata.finalCost = finalCost
+        noOfRooms = (plandata.noOfTravellers + 1) // 2
+        planid = planServices.generateId(plandata)
+        plandata.planid = planid
+        planServices.savePlan(plandata, skeletonPlan, planSchedule)
+        return render_template("finalPlan.html", planid=planid, firstname=firstname, type=userType, planSchedule=planSchedule, finalCost=finalCost, hotelCost=hotelCost, noOfRooms=noOfRooms, planType=plandata.planType)
+
+
+@plan.route('/myplans', methods=['GET'])
+def myPlans():
+    if (not session.get("index") is None):
+        userData = userService.getUserSession(session.get("index"))
+        if (userData[0]):
+            name = userData[1].name
+            userType = userData[1].usertype
+            firstname = name
+            if " " in name:
+                firstname = name.split()[0]
+    else:
+        userData = [False]
+        userType = ""
+        firstname = ""
+
+    if(userData[0] == False):
+        return redirect(url_for('user.login'))
+
+    planDataList = planServices.getPlansByUser(userData[1].userid)
+    return render_template("myPlans.html", firstname=firstname, type=userType, planDataList=planDataList)
+
+
+@plan.route('/myplans/<planid>', methods=['GET'])
+def planDetails(planid):
+    if (not session.get("index") is None):
+        userData = userService.getUserSession(session.get("index"))
+        if (userData[0]):
+            name = userData[1].name
+            userType = userData[1].usertype
+            firstname = name
+            if " " in name:
+                firstname = name.split()[0]
+    else:
+        userData = [False]
+        userType = ""
+        firstname = ""
+
+    if(userData[0] == False):
+        return redirect(url_for('user.login'))
+
+    [planSchedule, destinations,
+        dateCreated] = planServices.getPlanByid(planid)
+    return render_template('planPage.html', firstname=firstname, type=userType, planSchedule=planSchedule, destinations=destinations, dateCreated=dateCreated)
+
+
+@ plan.route('/', methods=['GET'])
 def redir():
     return redirect(url_for('plan.generate'))

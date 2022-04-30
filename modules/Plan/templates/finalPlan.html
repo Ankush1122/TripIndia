@@ -100,7 +100,6 @@
 			<div class="card-body">
 				<!--Card-Title-->
 				<p class="card-title text-center shadow mb-1 rounded">Generate Tour Plan</p>
-				<p class="text-center">Select Staying Hotel And Time of Travel On Each Day</p>
 
 				<div class="icons text-center">
 					<i class="fa fa-plane fa-2x" aria-hidden="true"></i>
@@ -108,88 +107,70 @@
 					<i class="fa fa-train fa-2x" aria-hidden="true"></i>
 				</div>
 
-				<div class="row mt-4">
+				<div class="row mt-4 justify-content-center" style="font-family: 'Times New Roman';font-size: 25px;">
 					<hr>
-					{% for event in skeletonPlan %}
+					{% for event in planSchedule %}
 					<div class="row mt-2">
-						<div class="col-sm-2">
+						<div class="col-sm-2 text-center">
 							<span class="form-label">Date</span>
-							<select class="browser-default custom-select mb-4" id="{{'date' + loop.index|string}}"
-								name="{{'date' + loop.index|string}}">
-								<option>{{event.date}}</option>
-							</select>
+							<input disabled class="mb-4 text-center" value="{{event.date}}" size="10"></input>
 						</div>
-						<div class="col-sm-2">
-							<span class="form-label">City</span>
-							<select class="browser-default custom-select mb-4" id="{{'city' + loop.index|string}}"
-								name="{{'city' + loop.index|string}}">
-								<option>{{event.city}}</option>
-							</select>
+						<div class="col-sm-4 text-center">
+							<span class="form-label">Destination</span>
+							<input disabled class="mb-4 text-center" value="{{event.destination}}" size="20"></input>
 						</div>
-						<div class="col-sm-2">
-							<span class="form-label">Starting Time</span>
-							<select class="browser-default custom-select mb-4"
-								id="{{'startingTime' + loop.index|string}}"
-								name="{{'startingTime' + loop.index|string}}" autocomplete="off">
-								<option>6:00AM</option>
-								<option>7:00AM</option>
-								<option>8:00AM</option>
-								<option>9:00AM</option>
-								<option selected>10:00AM</option>
-								<option>11:00AM</option>
-								<option>12:00PM</option>
-								<option>1:00PM</option>
-								<option>2:00PM</option>
-								<option>3:00PM</option>
-								<option>4:00PM</option>
-								<option>5:00PM</option>
-								<option>6:00PM</option>
-							</select>
+						<div class="col-sm-2 text-center">
+							<span class="form-label">From</span>
+							<input disabled class="mb-4 text-center" value="{{event.startingTime}}" size="9"></input>
 						</div>
-						<div class="col-sm-2">
-							<span class="form-label">Ending Time</span>
-							<select class="browser-default custom-select mb-4" id="{{'endingTime' + loop.index|string}}"
-								name="{{'endingTime' + loop.index|string}}" autocomplete="off">
-								<option>12:00PM</option>
-								<option>1:00PM</option>
-								<option>2:00PM</option>
-								<option>3:00PM</option>
-								<option>4:00PM</option>
-								<option>5:00PM</option>
-								<option selected>6:00PM</option>
-								<option>7:00PM</option>
-								<option>8:00PM</option>
-								<option>9:00PM</option>
-								<option>10:00PM</option>
-								<option>11:00PM</option>
+						<div class="col-sm-2 text-center">
+							<span class="form-label">To</span>
+							<input disabled class="mb-4 text-center" value="{{event.endingTime}}" size="9"></input>
 
-							</select>
 						</div>
-						<div class="col-sm-4">
-							<span class="form-label">Hotel</span>
-							<select class="browser-default custom-select mb-4" id="{{'hotel' + loop.index|string}}"
-								name="{{'hotel' + loop.index|string}}" autocomplete="off" required>
-								<option disabled selected value="">Select Hotel</option>
-								{% for hotel in hotels %}
-								{% if hotel.city == event.city %}
-								<option value="{{hotel.name}}">{{hotel.name + " " + hotel.hotelType | string + " Star
-									Hotel :
-									"
-									+ hotel.roomPrice|string + " RS"}}</option>
-								{% endif %}
-								{% endfor %}
-							</select>
+						<div class="col-sm-2 text-center">
+							<span class="form-label">City</span>
+							<input disabled class="mb-4 text-center" value="{{event.city}}" size="9"></input>
 						</div>
 					</div>
 					{% endfor %}
+				</div>
+				<div class="row mt-5">
+					<div class="col-sm-4">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'No. Of Rooms : ' + noOfRooms|string}}"></input>
+					</div>
+					<div class="col-sm-4 text-center">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'No. Of Destinations : ' + planSchedule|length|string}}"></input>
+					</div>
+					<div class="col-sm-4 text-center">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'Plan Type : ' + planType}}"></input>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-sm-4 text-center">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'Hotel Cost : ' + hotelCost|string + ' RS'}}"></input>
+					</div>
+					<div class="col-sm-4 text-center">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'Travelling Cost : ' + finalCost|string + ' RS'}}"></input>
+					</div>
+					<div class="col-sm-4 text-center">
+						<input class="text-center" disabled style="font-family:'Arial';font-size:25px;font-weight:bold"
+							value="{{'Total Cost : ' + (hotelCost + finalCost)|string + ' RS'}}"></input>
+					</div>
 				</div>
 
 				<div style="height: 20px;"></div>
 				<div class="text-center">
 					<p class="text-danger">{{warning}}</p>
-					<button class="btn btn-success mt-4 btn-lg" type="submit">Generate Plan</button>
+					<button class="btn btn-success mt-4 btn-lg" type="submit">Save Your Plan</button>
 				</div>
 				<div style="height: 20px;"></div>
+				<input type="hidden" id="planid" name="planid" value="{{planid}}">
 			</div>
 		</form>
 	</div>

@@ -75,7 +75,7 @@
                                             <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
                                                 Destination</a>
                                             {% endif %}
-                                            <a class="dropdown-item" href="">My Plans</a>
+                                            <a class="dropdown-item" href="/plan/myplans">My Plans</a>
                                             <a class="dropdown-item" href="">My Reviews</a>
                                             <a class="dropdown-item" href="/user/signout">Log Out</a>
                                         </div>
@@ -110,12 +110,12 @@
                     <div class="col-sm-6">
                         <span class="form-label">Tour Starting Date</span>
                         <input placeholder="&#xf073; Departing" type="date" id="startingDate" name="startingDate"
-                            value="{{startingDate}}" class="form-control datepicker mb-4">
+                            value="{{startingDate}}" class="form-control datepicker mb-4" required>
                     </div>
                     <div class="col-sm-6">
                         <span class="form-label">Tour Ending Date</span>
                         <input placeholder="&#xf073; Arriving" type="date" id="endingDate" name="endingDate"
-                            value="{{endingDate}}" class="form-control datepicker">
+                            value="{{endingDate}}" class="form-control datepicker" required>
                     </div>
                 </div>
 
@@ -161,8 +161,8 @@
                     <div class="col-sm-4">
                         <span class="form-label">Any Traveller Above Age 60</span>
                         <select class="browser-default custom-select mb-4" id="medicalCond" name="medicalCond">
-                            <option>Yes</option>
-                            <option selected>No</option>
+                            <option value="True">Yes</option>
+                            <option selected value="False">No</option>
                         </select>
                     </div>
                     <div class="col-sm-4">
@@ -170,8 +170,8 @@
                         <select class="browser-default custom-select mb-4" id="noOfCities" name="noOfCities">
                             <option>1</option>
                             <option>2</option>
-                            <option selected>3</option>
-                            <option>4</option>
+                            <option>3</option>
+                            <option selected>4</option>
                             <!--
                             <option>5</option>
                             <option>6</option>

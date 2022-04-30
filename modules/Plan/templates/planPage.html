@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Trip India</title>
+    <link href="{{ url_for('static', filename='assets/img/hero-img1.png') }}" rel="icon">
+
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}">
+
+
+
+    <link href="{{ url_for('plan.static', filename='css/form.css') }}" rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style id="table_style">
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+        }
+
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 15px;
+            background: #299be4;
+            color: #fff;
+            padding: 16px 30px;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-title .btn {
+            color: #566787;
+            float: right;
+            font-size: 13px;
+            background: #fff;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+        .table-title .btn:hover,
+        .table-title .btn:focus {
+            color: #566787;
+            background: #f2f2f2;
+        }
+
+        .table-title .btn i {
+            float: left;
+            font-size: 21px;
+            margin-right: 5px;
+        }
+
+        .table-title .btn span {
+            float: left;
+            margin-top: 2px;
+        }
+
+        table.table tr th,
+        table.table tr td {
+            border-color: #e9e9e9;
+            padding: 16px 15px;
+            vertical-align: middle;
+        }
+
+        table.table tr th:first-child {
+            width: 60px;
+        }
+
+        table.table tr th:last-child {
+            width: 100px;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: #fcfcfc;
+        }
+
+        table.table-striped.table-hover tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table td:last-child i {
+            opacity: 0.9;
+            font-size: 22px;
+            margin: 0 5px;
+        }
+
+        table.table td a {
+            font-weight: bold;
+            color: #566787;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        table.table td a:hover {
+            color: #2196F3;
+        }
+
+        table.table td a.settings {
+            color: #2196F3;
+        }
+
+        table.table td a.delete {
+            color: #F44336;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        .status {
+            font-size: 30px;
+            margin: 2px 2px 0 0;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 10px;
+        }
+
+        .currentRow {
+            background-color: #11ff87eb;
+            --bs-table-hover-bg: #11ff87eb;
+
+        }
+
+        .text-success {
+            color: #10c469;
+        }
+
+        .text-info {
+            color: #62c9e8;
+        }
+
+        .text-warning {
+            color: #FFC107;
+        }
+
+        .text-danger {
+            color: #ff5b5b;
+        }
+
+        .pagination {
+            float: right;
+            margin: 0 0 5px;
+        }
+
+        .pagination li a {
+            border: none;
+            font-size: 13px;
+            min-width: 30px;
+            min-height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 2px !important;
+            text-align: center;
+            padding: 0 6px;
+        }
+
+        .pagination li a:hover {
+            color: #666;
+        }
+
+        .pagination li.active a,
+        .pagination li.active a.page-link {
+            background: #03A9F4;
+        }
+
+        .pagination li.active a:hover {
+            background: #0397d6;
+        }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+
+        .hint-text {
+            float: left;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="section1 banner-area" id="home">
+        <!-- Start Header Area -->
+        <header class="default-header">
+            <p></p>
+            <div class="row">
+                <div class="col-7 col-md-4">
+                    <h1 class="headTitle" style="text-align: center;"><a href="/">Trip
+                            India<span>.</span></a></h1>
+                </div>
+                <div class="col-5 col-md-8">
+                    <nav class="navbar navbar-expand-lg  navbar-light">
+                        <div class="container">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="text-white lnr lnr-menu"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse justify-content-end align-items-center"
+                                id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+
+
+                                    <!-- Uncomment below if you prefer to use an image logo -->
+                                    <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                                    <li><a href="/home">Home</a></li>
+                                    <li><a href="/home#about">About</a></li>
+                                    <li><a href="/home#services">Services</a></li>
+                                    <li><a href="/home#contact">Contact</a></li>
+                                    <li><a href="/home#analytics">Analytics</a></li>
+                                    <li><a href="/touristdestination">Explore</a></li>
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                                            Hello {{firstname}}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/user/profile">My Profile</a>
+                                            {% if type == "admin" or type == "superadmin" %}
+                                            <a class="dropdown-item" href="/touristdestination/addDestination/new">Add
+                                                Destination</a>
+                                            {% endif %}
+                                            <a class="dropdown-item" href="/plan/myplans">My Plans</a>
+                                            <a class="dropdown-item" href="">My Reviews</a>
+                                            <a class="dropdown-item" href="/user/signout">Log Out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <p></p>
+                </div>
+            </div>
+        </header>
+        <!-- End Header Area -->
+    </div>
+    <div style="height: 140px;"></div>
+
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2 style="font-weight: bold;font-size: 34px;">My Plans</h2>
+                        </div>
+                        <div class="col-sm-7">
+                            <a href="/plan/openingForm" target="_blank" class="btn btn-secondary"><i
+                                    class="material-icons">&#xE147;</i>
+                                <span>Add New
+                                    Plan</span></a>
+                            <a href="#" class="btn btn-secondary" onclick="PrintTable();" value="Print"><i
+                                    class="material-icons">&#xE24D;</i> <span>Print Plan</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="planTable">
+                    <table class="table table-striped table-hover" style="page-break-inside: auto;">
+                        <thead>
+                            <tr style="page-break-inside: avoid;page-break-after: auto;">
+                                <th class="text-center">#</th>
+                                <th class="text-center">EventDate</th>
+                                <th class="text-center">From</th>
+                                <th class="text-center">To</th>
+                                <th class="text-center">Event Type</th>
+                                <th class="text-center">Destination Name</th>
+                                <th class="text-center">Destination Type</th>
+                                <th class="text-center">Destination Rating</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Spending</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            {% for event in planSchedule %}
+                            {% if event.status == "Current" %}
+                            <tr class="currentRow">
+                                {% else %}
+                            <tr>
+                                {% endif %}
+                                <td>{{loop.index}}</td>
+                                <td>{{event.date}}</td>
+                                <td>{{event.startingTime}}</td>
+                                <td>{{event.endingTime}}</td>
+                                <td>Visiting</td>
+                                <td><a href="{{'/touristdestination/explore/'+event.city+'/'+event.destination}}"
+                                        target="_blank">
+                                        {{event.destination}}</a></td>
+                                <td>{{destinations[event.destination][0]}}</td>
+                                <td>{{destinations[event.destination][1]}}</td>
+                                <td><a href="{{'/touristdestination/explore/' + event.city}}" target="_blank">
+                                        {{event.city}}</a></td>
+                                <td>{{destinations[event.destination][2]}}</td>
+                                {% if event.status == "Current" %}
+                                <td><span class="status text-primary">&bull;</span>Now</td>
+                                {% elif event.status == "Pending" %}
+                                <td><span class="status text-secondary">&bull;</span>Next</td>
+                                {% else %}
+                                <td><span class="status text-success">&bull;</span>Done</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div class="hint-text">Showing <b>{{planSchedule|length}}</b> out of
+                            <b>{{planSchedule|length}}</b>
+                            entries
+                        </div>
+                        <p style="text-align: end;">Craeted on <b>{{dateCreated}}</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="height: 115px;"></div>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="" style="text-align: center;height: 275px;">
+                <img src="{{ url_for('static', filename='assets/img/hero-img.png') }}" class="img-fluid" alt=""
+                    height="300px" width="300px">
+            </div>
+            <div class="container">
+
+                <div class="row  justify-content-center">
+                    <div class="col-lg-6" data-aos="fade-in" style="font-family: Times New Roman;">
+                        <h5>A Journey Of A Thousand Miles Begins With A Single Step</h5>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container footer-bottom clearfix">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Trip India</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/ -->
+                Designed by <a href="/home#contact">ED GROUP 10 IIT J</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+    <script type="text/javascript">
+        function PrintTable() {
+            var printWindow = window.open('', '', 'height=900,width=1200');
+            printWindow.document.write('<html><head><title>Table Contents</title>');
+
+            //Print the Table CSS.
+            var table_style = document.getElementById("table_style").innerHTML;
+            printWindow.document.write('<style type = "text/css">');
+            printWindow.document.write(table_style);
+            printWindow.document.write('</style>');
+            printWindow.document.write('</head>');
+
+
+            //Print the DIV contents i.e. the HTML Table.
+            printWindow.document.write('<body>');
+            var divContents = document.getElementById("planTable").innerHTML;
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body>');
+
+            printWindow.document.write('</html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+
+</body>
+
+</html>
