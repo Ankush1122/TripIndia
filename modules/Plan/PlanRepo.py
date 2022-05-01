@@ -25,7 +25,8 @@ class Repo:
                 "status" TEXT,
                 "dateCreated" TEXT,
                 "finalCost" INTEGER,
-                "userid" TEXT
+                "userid" TEXT,
+                "index" SERIAL
             );"""
             self.cur.execute(query)
         except Exception as e:
@@ -41,7 +42,8 @@ class Repo:
                 "city" TEXT,
                 "startingTime" TEXT,
                 "endingTime" TEXT,
-                "stayingHotel" TEXT
+                "stayingHotel" TEXT,
+                "index" INTEGER
             );"""
             self.cur.execute(query)
         except Exception as e:
@@ -57,7 +59,8 @@ class Repo:
                 "startingTime" TEXT,
                 "endingTime" TEXT,
                 "destination" TEXT,
-                "city" TEXT
+                "city" TEXT,
+                "index" INTEGER
             );"""
             self.cur.execute(query)
         except Exception as e:
@@ -76,10 +79,10 @@ class Repo:
             return False
         return True
 
-    def addSkeletonPlan(self, skeletonPlan):
+    def addSkeletonPlan(self, skeletonPlan, index):
         try:
-            query = """INSERT INTO "SkeletonPlan" ( "planid","date","city","startingTime","endingTime","stayingHotel") VALUES ('{}','{}','{}','{}','{}','{}');""".format(
-                skeletonPlan.planid, skeletonPlan.date, skeletonPlan.city, skeletonPlan.startingTime, skeletonPlan.endingTime, skeletonPlan.stayingHotel)
+            query = """INSERT INTO "SkeletonPlan" ( "planid","date","city","startingTime","endingTime","stayingHotel","index") VALUES ('{}','{}','{}','{}','{}','{}','{}');""".format(
+                skeletonPlan.planid, skeletonPlan.date, skeletonPlan.city, skeletonPlan.startingTime, skeletonPlan.endingTime, skeletonPlan.stayingHotel, index)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
@@ -87,10 +90,10 @@ class Repo:
             return False
         return True
 
-    def addPlanSchedule(self, planSchedule):
+    def addPlanSchedule(self, planSchedule, index):
         try:
-            query = """INSERT INTO "PlanSchedule" ( "planid","date","startingTime","endingTime","destination","city") VALUES ('{}','{}','{}','{}','{}','{}');""".format(
-                planSchedule.planid, planSchedule.date, planSchedule.startingTime, planSchedule.endingTime, planSchedule.destination, planSchedule.city)
+            query = """INSERT INTO "PlanSchedule" ( "planid","date","startingTime","endingTime","destination","city","index") VALUES ('{}','{}','{}','{}','{}','{}','{}');""".format(
+                planSchedule.planid, planSchedule.date, planSchedule.startingTime, planSchedule.endingTime, planSchedule.destination, planSchedule.city, index)
             self.cur.execute(query)
             self.conn.commit()
         except Exception as e:
@@ -113,7 +116,7 @@ class Repo:
 
     def getSkeletonPlanByid(self, planid):
         try:
-            query = """ SELECT * from "SkeletonPlan" WHERE "planid" = '{}';""".format(
+            query = """ SELECT * from "SkeletonPlan" WHERE "planid" = '{}' ORDER BY "index" ASC;""".format(
                 planid)
             self.cur.execute(query)
             Table = self.cur.fetchall()
@@ -129,7 +132,7 @@ class Repo:
 
     def getPlanScheduleByid(self, planid):
         try:
-            query = """ SELECT * from "PlanSchedule" WHERE "planid" = '{}';""".format(
+            query = """ SELECT * from "PlanSchedule" WHERE "planid" = '{}' ORDER BY "index" ASC;""".format(
                 planid)
             self.cur.execute(query)
             Table = self.cur.fetchall()
@@ -157,8 +160,25 @@ class Repo:
 
     def getPlanDataByUserid(self, userid):
         try:
-            query = """ SELECT * from "PlanData" WHERE "userid" = '{}' ORDER  BY ctid DESC ;""".format(
+            query = """ SELECT * from "PlanData" WHERE "userid" = '{}' ORDER  BY "index" DESC ;""".format(
                 userid)
+            self.cur.execute(query)
+            table = self.cur.fetchall()
+        except Exception as e:
+            print(e)
+            return [False, None]
+
+        planDataList = []
+        for data in table:
+            plandata = PlanData.PlanData(
+                data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], json.loads(data[9]), data[10], data[11], data[12], data[13])
+            if(plandata.status == "active"):
+                planDataList.append(plandata)
+        return [True, planDataList]
+
+    def getAllPlanData(self):
+        try:
+            query = """ SELECT * from "PlanData" WHERE "status" = 'active';""".format()
             self.cur.execute(query)
             table = self.cur.fetchall()
         except Exception as e:

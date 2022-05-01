@@ -322,11 +322,11 @@
                 <img src="{{ url_for('static', filename='assets/img/services-2.jpg') }}" alt="...">
               </div>
               <div class="card-body">
-                <h5 class="card-title"><a href="">Generate Tour Plan</a></h5>
+                <h5 class="card-title"><a href="/plan">Generate Tour Plan</a></h5>
                 <p class="card-text"> Generate most efficient and popular tour plan in just few click by providing
                   us
                   your tour related information like budget, days of stay, etc. </p>
-                <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+                <div class="read-more"><a href="/plan"><i class="bi bi-arrow-right"></i> Read More</a></div>
               </div>
             </div>
 
@@ -337,7 +337,7 @@
                 <img src="{{ url_for('static', filename='assets/img/services-3.jpg') }}" alt="...">
               </div>
               <div class="card-body">
-                <h5 class="card-title"><a href="">Find Best Routes for Traveling to any Tourist Place</a></h5>
+                <h5 class="card-title"><a href="#">Find Best Routes for Traveling to any Tourist Place</a></h5>
                 <p class="card-text">Find best possible routes for traveling throughout whole tour using google maps
                   services in our application.</p>
                 <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
@@ -350,7 +350,7 @@
                 <img src="{{ url_for('static', filename='assets/img/services-4.jpg') }}" alt="...">
               </div>
               <div class="card-body">
-                <h5 class="card-title"><a href=""> Classify Places and Plans </a></h5>
+                <h5 class="card-title"><a href="#"> Classify Places and Plans </a></h5>
                 <p class="card-text">Classify places and plans for different age groups according to amount physical
                   activity involved in exploring tourist places.</p>
                 <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
@@ -406,8 +406,7 @@
           </div>
 
           <div class="col-lg-6 mt-4 mt-lg-0">
-            <form action="{{ url_for('static', filename='forms/contact.php') }}" method="post" role="form"
-              class="php-email-form w-100" data-aos="fade-up">
+            <form role="form" class="php-email-form w-100" data-aos="fade-up">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>

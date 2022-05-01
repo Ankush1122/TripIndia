@@ -47,6 +47,13 @@ class Services:
 
         return ["True", ""]
 
+    def getNoOfPlans(self):
+        data = self.planRepo.getAllPlanData()
+        if data[0]:
+            return len(data[1])
+        else:
+            return 0
+
     def verifyCitiesForm(self, Cities):
         unique = []
         for city in Cities:
@@ -131,10 +138,16 @@ class Services:
                                   reverse=True)
 
             elif(plandata.planType == "Budget Efficient"):
-                if(plandata.nationality == "Indian"):
-                    destinations.sort(key=attrgetter('spendingForIndian'))
-                else:
-                    destinations.sort(key=attrgetter('spendingForForeigner'))
+                # sorting destinationa by budget/timeRequired
+                for destination in destinations:
+                    if(plandata.nationality == "Indian"):
+                        spending = destination.spendingForIndian.split("RS")[0]
+                    else:
+                        spending = destination.spendingForForeigner.split("RS")[
+                            0]
+                    destination.index = int(
+                        spending) / int(destination.timeRequired)
+                destinations.sort(key=attrgetter('index'))
 
             elif(plandata.planType == "Time Efficient"):
                 destinations.sort(key=attrgetter('timeRequired'))
@@ -175,14 +188,16 @@ class Services:
         self.planRepo.addPlanData(plandata)
 
         planid = plandata.planid
-
+        i = 0
         for event in skeletonPlan:
             event.planid = planid
-            self.planRepo.addSkeletonPlan(event)
-
+            self.planRepo.addSkeletonPlan(event, i)
+            i += 1
+        i = 0
         for event in planSchedule:
             event.planid = planid
-            self.planRepo.addPlanSchedule(event)
+            self.planRepo.addPlanSchedule(event, i)
+            i += 1
 
     def generateId(self, plandata):
         id = plandata.userid + plandata.dateCreated + str(time.time())

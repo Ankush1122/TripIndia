@@ -19,6 +19,7 @@ db = MainRepo.Repo(app.config)
 
 from User import UserServices
 from TouristsDestination import TouristDestinationServices
+from Plan import PlanServices
 from User.UserController import user
 from Plan.PlanController import plan
 from Hotel.HotelController import hotel
@@ -34,11 +35,12 @@ app.register_blueprint(hotel, url_prefix="/hotel")
 def home():
     userService = UserServices.UserServices(db)
     touristServices = TouristDestinationServices.Services(db)
+    planServices = PlanServices.Services(db)
 
     if(app.config["ENV"] == "production"):
         userService.addView()
     totalVisits = userService.getTotalVisits()
-    plans = 0
+    plans = planServices.getNoOfPlans()
     noOfusers = userService.getNumberOfUsers()
     places = touristServices.getCountOfDestinations()
     if (not session.get("index") is None):

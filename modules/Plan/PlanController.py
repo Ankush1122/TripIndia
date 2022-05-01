@@ -235,4 +235,4 @@ def planDetails(planid):
 
 @ plan.route('/', methods=['GET'])
 def redir():
-    return redirect(url_for('plan.generate'))
+    return redirect(url_for('plan.openingForm'))
